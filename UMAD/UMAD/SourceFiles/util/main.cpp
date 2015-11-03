@@ -93,6 +93,7 @@ type stringToNumber(const char str[])
 
 int main(int argc, char** argv)
 {
+	int zhang = 0;
 
 	char *task = "index";
 
