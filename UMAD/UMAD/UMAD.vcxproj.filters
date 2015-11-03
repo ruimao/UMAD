@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\index">
+      <UniqueIdentifier>{c691a23c-082e-488d-a130-4a7a0fead025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\metricdata">
+      <UniqueIdentifier>{3bc5b549-4766-4476-8fee-12397b6c2a10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\metricdistance">
+      <UniqueIdentifier>{35036dd7-599e-4bc7-93b2-8bd7ba97f085}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\cluster">
+      <UniqueIdentifier>{61311e29-3a29-458e-9d11-0c87d15ebba1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\util">
+      <UniqueIdentifier>{ef25ab98-c9d2-47ef-b57a-45706202740a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\index">
+      <UniqueIdentifier>{55bcb576-8135-4eea-a38e-fe1c48993b6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\metricdata">
+      <UniqueIdentifier>{1e737ffd-7936-4e9b-9564-601c1ee6021b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\metricdistance">
+      <UniqueIdentifier>{ec103ac3-5822-4eea-8ea5-9af4c1f6602c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\cluster">
+      <UniqueIdentifier>{8b087669-1ce0-44f1-83e9-6e88b3d5977b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util">
+      <UniqueIdentifier>{78f2cc0f-567e-4481-8a28-d33022e57967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\outlierdetection">
+      <UniqueIdentifier>{92b02975-2e77-4fdc-a413-d16e4479e4c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\outlierdetection">
+      <UniqueIdentifier>{6a022ae2-101d-4846-936f-59144b74003f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\index\query">
+      <UniqueIdentifier>{cad5a6ba-f8cc-4870-86b4-a739ecddf625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\index\query">
+      <UniqueIdentifier>{2a80706c-670a-4a0e-9895-c7f1973e2ac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\main">
+      <UniqueIdentifier>{20b6d7ef-06c4-4781-b232-6105f9dd730c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\cluster\util">
+      <UniqueIdentifier>{b0c6dc17-8f77-46d7-b96e-df3b5aedbb4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\cluster\util">
+      <UniqueIdentifier>{d25b518f-e97d-4732-9b57-6dc7f73d713f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\classifier">
+      <UniqueIdentifier>{d890bde6-7efd-440e-a1b7-3fa5dcf79525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\classifier">
+      <UniqueIdentifier>{ca050797-4aef-423b-a3b0-038d5ef08aca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\classifier\util">
+      <UniqueIdentifier>{56a37ba4-7f8c-41b5-b83a-ca1253c1c359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\classifier\util">
+      <UniqueIdentifier>{831e7148-0edb-4f5d-ba48-2a224b0d8497}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HeaderFiles\index\BalancePartitionMethod.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\ExcludedMiddleForest.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\ExcludedMiddlePartitionMethod.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\FFTPivotSelectionMethod.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\IncrementalSelection.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\Index.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\IndexNode.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\ListIndex.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\MVPIndex.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\MVPInternalNode.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\MVPLeafNode.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\PartitionMethod.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\PartitionResults.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\PCA.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\PCAOnFFT.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\PivotSelectionMethod.h">
+      <Filter>Header Files\index</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdata\DNA.h">
+      <Filter>Header Files\metricdata</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdata\DoubleIndexObjectPair.h">
+      <Filter>Header Files\metricdata</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdata\DoubleVector.h">
+      <Filter>Header Files\metricdata</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdata\Image.h">
+      <Filter>Header Files\metricdata</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdata\Peptide.h">
+      <Filter>Header Files\metricdata</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdata\RNA.h">
+      <Filter>Header Files\metricdata</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdata\StringObject.h">
+      <Filter>Header Files\metricdata</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdata\TandemSpectra.h">
+      <Filter>Header Files\metricdata</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdistance\CountedMetric.h">
+      <Filter>Header Files\metricdistance</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdistance\DNAMetric.h">
+      <Filter>Header Files\metricdistance</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdistance\EditDistance.h">
+      <Filter>Header Files\metricdistance</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdistance\EuclideanDistance.h">
+      <Filter>Header Files\metricdistance</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdistance\ImageMetric.h">
+      <Filter>Header Files\metricdistance</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdistance\MSMSMetric.h">
+      <Filter>Header Files\metricdistance</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdistance\PeptideMetric.h">
+      <Filter>Header Files\metricdistance</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdistance\RNAMetric.h">
+      <Filter>Header Files\metricdistance</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\util\getopt.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\util\getopt_win.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\util\MemMonitor.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\util\ObjectFactory.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\query\Query.h">
+      <Filter>Header Files\index\query</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\query\RangeQuery.h">
+      <Filter>Header Files\index\query</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdata\MetricData.h">
+      <Filter>Header Files\metricdata</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdistance\MetricDistance.h">
+      <Filter>Header Files\metricdistance</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\index\query\SearchTask.h">
+      <Filter>Header Files\index\query</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\metricdistance\LInfinityDistance.h">
+      <Filter>Header Files\metricdistance</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot.h">
+      <Filter>Header Files\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot_BalanceOne.h">
+      <Filter>Header Files\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot_DBSCAN.h">
+      <Filter>Header Files\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot_Kmeans.h">
+      <Filter>Header Files\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot_Trisection.h">
+      <Filter>Header Files\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\PivotWisePartitionMethod.h">
+      <Filter>Header Files\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\SelectOptimalPivots.h">
+      <Filter>Header Files\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\SelectOptimalPivots_Sequence.h">
+      <Filter>Header Files\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\SelectOptimalPivots_Variance.h">
+      <Filter>Header Files\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\util\Clustering_Kmeans.h">
+      <Filter>Header Files\cluster\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\util\ClusteringTask.h">
+      <Filter>Header Files\cluster\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\util\utilFunction.h">
+      <Filter>Header Files\cluster\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\util\TaskDeclaration.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\util\ThreadPoolManager.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot_Balance.h">
+      <Filter>Header Files\cluster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\util\DatasetInMetricSpace.h">
+      <Filter>Header Files\classifier\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\util\GetValue.h">
+      <Filter>Header Files\classifier\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\util\MetricDataFormat.h">
+      <Filter>Header Files\classifier\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\util\NavieBayes.h">
+      <Filter>Header Files\classifier\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\util\ReadLabel.h">
+      <Filter>Header Files\classifier\util</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\Test.h">
+      <Filter>Header Files\classifier</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\Test_Knn.h">
+      <Filter>Header Files\classifier</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\Test_NavieBayes.h">
+      <Filter>Header Files\classifier</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\Train.h">
+      <Filter>Header Files\classifier</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\Train_Knn.h">
+      <Filter>Header Files\classifier</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\Train_NavieBayes.h">
+      <Filter>Header Files\classifier</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\Train_C4.5.h">
+      <Filter>Header Files\classifier</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\Test_C4.5.h">
+      <Filter>Header Files\classifier</Filter>
+    </ClInclude>
+    <ClInclude Include="HeaderFiles\classifier\util\C4.5.h">
+      <Filter>Header Files\classifier\util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SourceFiles\index\BalancePartitionMethod.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\ExcludedMiddleForest.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\ExcludedMiddlePartitionMethod.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\FFTPivotSelectionMethod.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\IncrementalSelection.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\Index.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\IndexNode.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\ListIndex.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\MVPIndex.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\MVPInternalNode.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\MVPLeafNode.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\PartitionResults.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\PCA.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\PCAOnFFT.cpp">
+      <Filter>Source Files\index</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdata\DNA.cpp">
+      <Filter>Source Files\metricdata</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdata\DoubleIndexObjectPair.cpp">
+      <Filter>Source Files\metricdata</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdata\DoubleVector.cpp">
+      <Filter>Source Files\metricdata</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdata\Image.cpp">
+      <Filter>Source Files\metricdata</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdata\Peptide.cpp">
+      <Filter>Source Files\metricdata</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdata\RNA.cpp">
+      <Filter>Source Files\metricdata</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdata\StringObject.cpp">
+      <Filter>Source Files\metricdata</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdata\TandemSpectra.cpp">
+      <Filter>Source Files\metricdata</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdistance\CountedMetric.cpp">
+      <Filter>Source Files\metricdistance</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdistance\DNAMetric.cpp">
+      <Filter>Source Files\metricdistance</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdistance\EditDistance.cpp">
+      <Filter>Source Files\metricdistance</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdistance\EuclideanDistance.cpp">
+      <Filter>Source Files\metricdistance</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdistance\ImageMetric.cpp">
+      <Filter>Source Files\metricdistance</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdistance\LInfinityDistance.cpp">
+      <Filter>Source Files\metricdistance</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdistance\MSMSMetric.cpp">
+      <Filter>Source Files\metricdistance</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdistance\PeptideMetric.cpp">
+      <Filter>Source Files\metricdistance</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdistance\RNAMetric.cpp">
+      <Filter>Source Files\metricdistance</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\getopt.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\getopt_win.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\LoadOrSearch.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\MemMonitor.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\MVPIndexStructureAnalysor.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\ObjectFactory.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\query\Query.cpp">
+      <Filter>Source Files\index\query</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\query\RangeQuery.cpp">
+      <Filter>Source Files\index\query</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\index\query\SearchTask.cpp">
+      <Filter>Source Files\index\query</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdata\MetricData.cpp">
+      <Filter>Source Files\metricdata</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\metricdistance\MetricDistance.cpp">
+      <Filter>Source Files\metricdistance</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\MakeFileName.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\BuildAndSearchTypes.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\PartitionByOnePivot_BalanceOne.cpp">
+      <Filter>Source Files\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\PartitionByOnePivot_DBSCAN.cpp">
+      <Filter>Source Files\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\PartitionByOnePivot_Kmeans.cpp">
+      <Filter>Source Files\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\PartitionByOnePivot_Trisection.cpp">
+      <Filter>Source Files\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\PivotWisePartitionMethod.cpp">
+      <Filter>Source Files\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\SelectOptimalPivots_Sequence.cpp">
+      <Filter>Source Files\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\SelectOptimalPivots_Variance.cpp">
+      <Filter>Source Files\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\util\Clustering_Kmeans.cpp">
+      <Filter>Source Files\cluster\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\util\ClusteringTask.cpp">
+      <Filter>Source Files\cluster\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\util\utilFunction.cpp">
+      <Filter>Source Files\cluster\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\ThreadPoolManager.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\BuildORQueryIndex.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\util\main.cpp">
+      <Filter>Source Files\main</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\cluster\PartitionByOnePivot_Balance.cpp">
+      <Filter>Source Files\cluster</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\util\DatasetInMetricSpace.cpp">
+      <Filter>Source Files\classifier\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\util\NavieBayes.cpp">
+      <Filter>Source Files\classifier\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\util\ReadLabel.cpp">
+      <Filter>Source Files\classifier\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\util\TrainOrTest.cpp">
+      <Filter>Source Files\classifier\util</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\Test.cpp">
+      <Filter>Source Files\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\Test_Knn.cpp">
+      <Filter>Source Files\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\Test_NavieBayes.cpp">
+      <Filter>Source Files\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\Train.cpp">
+      <Filter>Source Files\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\Train_Knn.cpp">
+      <Filter>Source Files\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\Train_NavieBayes.cpp">
+      <Filter>Source Files\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\Train_C4.5.cpp">
+      <Filter>Source Files\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\Test_C4.5.cpp">
+      <Filter>Source Files\classifier</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFiles\classifier\util\classification.cpp">
+      <Filter>Source Files\classifier\util</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

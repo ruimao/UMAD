@@ -1,0 +1,41 @@
+#!/bin/bash
+BuildModeName=""
+if [ $BuildMode -eq 0 ]
+ then
+   BuildModeName="LeafToRoot"
+ else
+   BuildModeName="RootToLeaf"
+fi
+echo $BuildModeName
+echo ""
+echo ""
+curCmd=""
+sop="Sequence"
+pbop="BalanceTwo"
+case $DataType in
+   vector)curCmd="./UMAD --runOption build --buildMode $BuildMode --indexName vector_"$Size"_"$BuildModeName"_v2_f3_m100 --n uniformvector-20dim-1m.txt --v 2 --f 3 --t vector --e MVPIndex --psm fft --dpm balanced --m 100 --init $Size --F $Size --s 2000 --dim 20 --res results_vector_build_"$Size"i_"$BuildModeName"_fft_balanced_MVPIndex_v2_f3_m100_dim20.txt --sop "$sop" --pbop "$pbop" --tR 0.1";;
+   string)curCmd="./UMAD --runOption build --buildMode $BuildMode --indexName string_"$Size"_"$BuildModeName"_v2_f3_m100 --n English.dic --v 2 --f 3 --t string --e MVPIndex --psm fft --dpm balanced --m 100 --init $Size --F $Size --s 2000 --dim 2 --res results_string_build_"$Size"i_"$BuildModeName"_fft_balanced_MVPIndex_v2_f3_m100_dim2.txt --sop "$sop" --pbop "$pbop" --tR 1";;
+   image)curCmd="./UMAD --runOption build --buildMode $BuildMode --indexName image_"$Size"_"$BuildModeName"_v2_f3_m100 --n allfeas.dat --v 2 --f 3 --t image --e MVPIndex --psm fft --dpm balanced --m 100 --init $Size --F $Size --s 2000 --dim 66 --res results_image_build_"$Size"i_"$BuildModeName"_fft_balanced_MVPIndex_v2_f3_m100_dim66.txt --sop "$sop" --pbop "$pbop" --tR 0.05";;
+   dna)curCmd="./UMAD --runOption build --buildMode $BuildMode --indexName dna_"$Size"_"$BuildModeName"_v2_f3_m100 --n arab1.con --v 2 --f 3 --t dna --e MVPIndex --psm fft --dpm balanced --m 100 --init $Size --F $Size --s 2000 --frag 18 --res results_dna_build_"$Size"i_"$BuildModeName"_fft_balanced_MVPIndex_v2_f3_m100_frag18.txt --sop "$sop" --pbop "$pbop" --tR 1";;
+   peptide)curCmd="./UMAD --runOption build --buildMode $BuildMode --indexName peptide_"$Size"_"$BuildModeName"_v2_f3_m100 --n nrall.fasta --v 2 --f 3 --t peptide --e MVPIndex --psm fft --dpm balanced --m 100 --init $Size --F $Size --s 2000 --frag 6 --res results_peptide_build_"$Size"i_"$BuildModeName"_fft_balanced_MVPIndex_v2_f3_m100_frag6.txt --sop "$sop" --pbop "$pbop" --tR 1";;
+esac
+echo "Current Task : Build Index ( Size:$Size,BuildMode:$BuildMode )"
+echo "Current Command:$curCmd"
+echo ""
+startTime=`date +%T`
+startData=`date +%D`
+echo "Build start on $startTime $startData"
+echo "==============================================="
+echo ""
+cd ../Compile/
+echo "Build Processing......"
+$curCmd
+echo ""
+cd ../Shell/
+echo "================================================"
+endTime=`date +%T`
+endData=`date +%D`
+echo "Build Ended on $endTime $endData"
+echo ""
+echo ""
+echo ""

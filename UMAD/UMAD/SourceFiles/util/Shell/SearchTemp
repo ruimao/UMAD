@@ -1,0 +1,12 @@
+sop=Sequence
+pbop=Balance
+export tR
+if [ "$pbop"="Trisection" ]
+ then
+   for tr in `cat ./radiusList/radiusList_$DataType`
+   do
+       tR=$tr
+       source SingleSearch_Trisection
+ else
+   source SingleSearch
+fi

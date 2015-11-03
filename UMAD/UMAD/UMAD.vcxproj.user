@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LocalDebuggerCommandArguments>--runOption buildandsearch --buildMode 0 --n arab1.con --frag 18 --v 2 --f 3 --psm fft --dpm balanced --indexName vector_index --res vector_result.txt --m 100 --t dna --e MVPIndex --init 1000 --F 1000 --s 1000  --searchMode 1 --indexName vector_index --q arab1.con --fq 0 --l 1000 --a 5 --i 0 --y 1 -ver 1</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LocalDebuggerCommandArguments>--runOption search --indexName vectordb-10000000-20dim-2-3.db  --searchMode 3 --q uniformvector-20dim-1m.txt --dim 20 --t vector  --fq 0 --l 200 --a 2.0 --i 2.0 --y 0.25 --cacheHeight 6 --cacheAll 1 --init 10000 --tsThreadNum 20 --csThreadNum 5  --res 2014710-4</LocalDebuggerCommandArguments>
+    <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C822A711-945D-459A-913D-9658DDDA7E49}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>UMAD</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GSL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>SourceFiles\util\GSL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/D "GSL_DLL"  /D "_CRT_SECURE_NO_DEPRECATE" %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>SourceFiles\util\GSL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libgsl-0.lib;libgslcblas-0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <HeapReserveSize>0x10000000</HeapReserveSize>
+      <HeapCommitSize>0x10000000</HeapCommitSize>
+      <StackReserveSize>0x10000000</StackReserveSize>
+      <StackCommitSize>0x10000000</StackCommitSize>
+      <LargeAddressAware>true</LargeAddressAware>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>GSL_DLL;WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>SourceFiles\util\GSL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>SourceFiles\util\GSL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libgsl-0.lib;libgslcblas-0.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="HeaderFiles\classifier\Test.h" />
+    <ClInclude Include="HeaderFiles\classifier\Test_C4.5.h" />
+    <ClInclude Include="HeaderFiles\classifier\Test_Knn.h" />
+    <ClInclude Include="HeaderFiles\classifier\Test_NavieBayes.h" />
+    <ClInclude Include="HeaderFiles\classifier\Train.h" />
+    <ClInclude Include="HeaderFiles\classifier\Train_C4.5.h" />
+    <ClInclude Include="HeaderFiles\classifier\Train_Knn.h" />
+    <ClInclude Include="HeaderFiles\classifier\Train_NavieBayes.h" />
+    <ClInclude Include="HeaderFiles\classifier\util\C4.5.h" />
+    <ClInclude Include="HeaderFiles\classifier\util\DatasetInMetricSpace.h" />
+    <ClInclude Include="HeaderFiles\classifier\util\GetValue.h" />
+    <ClInclude Include="HeaderFiles\classifier\util\MetricDataFormat.h" />
+    <ClInclude Include="HeaderFiles\classifier\util\NavieBayes.h" />
+    <ClInclude Include="HeaderFiles\classifier\util\ReadLabel.h" />
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot.h" />
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot_Balance.h" />
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot_BalanceOne.h" />
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot_DBSCAN.h" />
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot_Kmeans.h" />
+    <ClInclude Include="HeaderFiles\cluster\PartitionByOnePivot_Trisection.h" />
+    <ClInclude Include="HeaderFiles\cluster\PivotWisePartitionMethod.h" />
+    <ClInclude Include="HeaderFiles\cluster\SelectOptimalPivots.h" />
+    <ClInclude Include="HeaderFiles\cluster\SelectOptimalPivots_Sequence.h" />
+    <ClInclude Include="HeaderFiles\cluster\SelectOptimalPivots_Variance.h" />
+    <ClInclude Include="HeaderFiles\cluster\util\ClusteringTask.h" />
+    <ClInclude Include="HeaderFiles\cluster\util\Clustering_Kmeans.h" />
+    <ClInclude Include="HeaderFiles\cluster\util\utilFunction.h" />
+    <ClInclude Include="HeaderFiles\index\BalancePartitionMethod.h" />
+    <ClInclude Include="HeaderFiles\index\ExcludedMiddleForest.h" />
+    <ClInclude Include="HeaderFiles\index\ExcludedMiddlePartitionMethod.h" />
+    <ClInclude Include="HeaderFiles\index\FFTPivotSelectionMethod.h" />
+    <ClInclude Include="HeaderFiles\index\IncrementalSelection.h" />
+    <ClInclude Include="HeaderFiles\index\Index.h" />
+    <ClInclude Include="HeaderFiles\index\IndexNode.h" />
+    <ClInclude Include="HeaderFiles\index\ListIndex.h" />
+    <ClInclude Include="HeaderFiles\index\MVPIndex.h" />
+    <ClInclude Include="HeaderFiles\index\MVPInternalNode.h" />
+    <ClInclude Include="HeaderFiles\index\MVPLeafNode.h" />
+    <ClInclude Include="HeaderFiles\index\PartitionMethod.h" />
+    <ClInclude Include="HeaderFiles\index\PartitionResults.h" />
+    <ClInclude Include="HeaderFiles\index\PCA.h" />
+    <ClInclude Include="HeaderFiles\index\PCAOnFFT.h" />
+    <ClInclude Include="HeaderFiles\index\PivotSelectionMethod.h" />
+    <ClInclude Include="HeaderFiles\index\query\Query.h" />
+    <ClInclude Include="HeaderFiles\index\query\RangeQuery.h" />
+    <ClInclude Include="HeaderFiles\index\query\SearchTask.h" />
+    <ClInclude Include="HeaderFiles\metricdata\DNA.h" />
+    <ClInclude Include="HeaderFiles\metricdata\DoubleIndexObjectPair.h" />
+    <ClInclude Include="HeaderFiles\metricdata\DoubleVector.h" />
+    <ClInclude Include="HeaderFiles\metricdata\Image.h" />
+    <ClInclude Include="HeaderFiles\metricdata\MetricData.h" />
+    <ClInclude Include="HeaderFiles\metricdata\Peptide.h" />
+    <ClInclude Include="HeaderFiles\metricdata\RNA.h" />
+    <ClInclude Include="HeaderFiles\metricdata\StringObject.h" />
+    <ClInclude Include="HeaderFiles\metricdata\TandemSpectra.h" />
+    <ClInclude Include="HeaderFiles\metricdistance\CountedMetric.h" />
+    <ClInclude Include="HeaderFiles\metricdistance\DNAMetric.h" />
+    <ClInclude Include="HeaderFiles\metricdistance\EditDistance.h" />
+    <ClInclude Include="HeaderFiles\metricdistance\EuclideanDistance.h" />
+    <ClInclude Include="HeaderFiles\metricdistance\ImageMetric.h" />
+    <ClInclude Include="HeaderFiles\metricdistance\LInfinityDistance.h" />
+    <ClInclude Include="HeaderFiles\metricdistance\MetricDistance.h" />
+    <ClInclude Include="HeaderFiles\metricdistance\MSMSMetric.h" />
+    <ClInclude Include="HeaderFiles\metricdistance\PeptideMetric.h" />
+    <ClInclude Include="HeaderFiles\metricdistance\RNAMetric.h" />
+    <ClInclude Include="HeaderFiles\util\getopt.h" />
+    <ClInclude Include="HeaderFiles\util\getopt_win.h" />
+    <ClInclude Include="HeaderFiles\util\MemMonitor.h" />
+    <ClInclude Include="HeaderFiles\util\ObjectFactory.h" />
+    <ClInclude Include="HeaderFiles\util\TaskDeclaration.h" />
+    <ClInclude Include="HeaderFiles\util\ThreadPoolManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SourceFiles\classifier\Test.cpp" />
+    <ClCompile Include="SourceFiles\classifier\Test_C4.5.cpp" />
+    <ClCompile Include="SourceFiles\classifier\Test_Knn.cpp" />
+    <ClCompile Include="SourceFiles\classifier\Test_NavieBayes.cpp" />
+    <ClCompile Include="SourceFiles\classifier\Train.cpp" />
+    <ClCompile Include="SourceFiles\classifier\Train_C4.5.cpp" />
+    <ClCompile Include="SourceFiles\classifier\Train_Knn.cpp" />
+    <ClCompile Include="SourceFiles\classifier\Train_NavieBayes.cpp" />
+    <ClCompile Include="SourceFiles\classifier\util\classification.cpp" />
+    <ClCompile Include="SourceFiles\classifier\util\DatasetInMetricSpace.cpp" />
+    <ClCompile Include="SourceFiles\classifier\util\NavieBayes.cpp" />
+    <ClCompile Include="SourceFiles\classifier\util\ReadLabel.cpp" />
+    <ClCompile Include="SourceFiles\classifier\util\TrainOrTest.cpp" />
+    <ClCompile Include="SourceFiles\cluster\PartitionByOnePivot_Balance.cpp" />
+    <ClCompile Include="SourceFiles\cluster\PartitionByOnePivot_BalanceOne.cpp" />
+    <ClCompile Include="SourceFiles\cluster\PartitionByOnePivot_DBSCAN.cpp" />
+    <ClCompile Include="SourceFiles\cluster\PartitionByOnePivot_Kmeans.cpp" />
+    <ClCompile Include="SourceFiles\cluster\PartitionByOnePivot_Trisection.cpp" />
+    <ClCompile Include="SourceFiles\cluster\PivotWisePartitionMethod.cpp" />
+    <ClCompile Include="SourceFiles\cluster\SelectOptimalPivots_Sequence.cpp" />
+    <ClCompile Include="SourceFiles\cluster\SelectOptimalPivots_Variance.cpp" />
+    <ClCompile Include="SourceFiles\cluster\util\ClusteringTask.cpp" />
+    <ClCompile Include="SourceFiles\cluster\util\Clustering_Kmeans.cpp" />
+    <ClCompile Include="SourceFiles\cluster\util\utilFunction.cpp" />
+    <ClCompile Include="SourceFiles\index\BalancePartitionMethod.cpp" />
+    <ClCompile Include="SourceFiles\index\ExcludedMiddleForest.cpp" />
+    <ClCompile Include="SourceFiles\index\ExcludedMiddlePartitionMethod.cpp" />
+    <ClCompile Include="SourceFiles\index\FFTPivotSelectionMethod.cpp" />
+    <ClCompile Include="SourceFiles\index\IncrementalSelection.cpp" />
+    <ClCompile Include="SourceFiles\index\Index.cpp" />
+    <ClCompile Include="SourceFiles\index\IndexNode.cpp" />
+    <ClCompile Include="SourceFiles\index\ListIndex.cpp" />
+    <ClCompile Include="SourceFiles\index\MVPIndex.cpp" />
+    <ClCompile Include="SourceFiles\index\MVPInternalNode.cpp" />
+    <ClCompile Include="SourceFiles\index\MVPLeafNode.cpp" />
+    <ClCompile Include="SourceFiles\index\PartitionResults.cpp" />
+    <ClCompile Include="SourceFiles\index\PCA.cpp" />
+    <ClCompile Include="SourceFiles\index\PCAOnFFT.cpp" />
+    <ClCompile Include="SourceFiles\index\query\Query.cpp" />
+    <ClCompile Include="SourceFiles\index\query\RangeQuery.cpp" />
+    <ClCompile Include="SourceFiles\index\query\SearchTask.cpp" />
+    <ClCompile Include="SourceFiles\metricdata\DNA.cpp" />
+    <ClCompile Include="SourceFiles\metricdata\DoubleIndexObjectPair.cpp" />
+    <ClCompile Include="SourceFiles\metricdata\DoubleVector.cpp" />
+    <ClCompile Include="SourceFiles\metricdata\Image.cpp" />
+    <ClCompile Include="SourceFiles\metricdata\MetricData.cpp" />
+    <ClCompile Include="SourceFiles\metricdata\Peptide.cpp" />
+    <ClCompile Include="SourceFiles\metricdata\RNA.cpp" />
+    <ClCompile Include="SourceFiles\metricdata\StringObject.cpp" />
+    <ClCompile Include="SourceFiles\metricdata\TandemSpectra.cpp" />
+    <ClCompile Include="SourceFiles\metricdistance\CountedMetric.cpp" />
+    <ClCompile Include="SourceFiles\metricdistance\DNAMetric.cpp" />
+    <ClCompile Include="SourceFiles\metricdistance\EditDistance.cpp" />
+    <ClCompile Include="SourceFiles\metricdistance\EuclideanDistance.cpp" />
+    <ClCompile Include="SourceFiles\metricdistance\ImageMetric.cpp" />
+    <ClCompile Include="SourceFiles\metricdistance\LInfinityDistance.cpp" />
+    <ClCompile Include="SourceFiles\metricdistance\MetricDistance.cpp" />
+    <ClCompile Include="SourceFiles\metricdistance\MSMSMetric.cpp" />
+    <ClCompile Include="SourceFiles\metricdistance\PeptideMetric.cpp" />
+    <ClCompile Include="SourceFiles\metricdistance\RNAMetric.cpp" />
+    <ClCompile Include="SourceFiles\util\BuildAndSearchTypes.cpp" />
+    <ClCompile Include="SourceFiles\util\BuildORQueryIndex.cpp" />
+    <ClCompile Include="SourceFiles\util\getopt.cpp" />
+    <ClCompile Include="SourceFiles\util\getopt_win.cpp" />
+    <ClCompile Include="SourceFiles\util\LoadOrSearch.cpp" />
+    <ClCompile Include="SourceFiles\util\main.cpp" />
+    <ClCompile Include="SourceFiles\util\MakeFileName.cpp" />
+    <ClCompile Include="SourceFiles\util\MemMonitor.cpp" />
+    <ClCompile Include="SourceFiles\util\MVPIndexStructureAnalysor.cpp" />
+    <ClCompile Include="SourceFiles\util\ObjectFactory.cpp" />
+    <ClCompile Include="SourceFiles\util\ThreadPoolManager.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

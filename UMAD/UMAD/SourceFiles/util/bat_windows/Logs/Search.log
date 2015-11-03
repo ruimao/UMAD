@@ -1,0 +1,99 @@
+                 Search Log
+         23:51:35.01 2014/12/29 周一
+===========================================
+
+
+
+Current Task   : Search Index ( Size: 100000, Search-Mode: 1, Built-Mode: 1 )
+Current Command: "UMAD --runOption search --searchMode 1 --indexName vector_100000_1_v2_f3_m100 --n uniformvector-20dim-1m.txt --t vector --dim 6 --q uniformvector-20dim-1m.txt --fq 0 --l 1000 --a 0.4 --i 0 --y 0.05 --ver 0 --init 100000 --buildMode 1 --res results_search_vector_datasize_100000_buildMode_1_searchMode_1.txt"
+
+Search Started on 23:51:35.02 2014/12/29 周一
+Std Output:
+===========================================
+
+option -runOption with value `search'
+option -searchMode with value 1
+option -indexName with value vector_100000_1_v2_f3_m100
+option -dataFileName with value `uniformvector-20dim-1m.txt'
+option -dataType with value `vector'
+option -dim with value `6'
+option -queryFileName with value `uniformvector-20dim-1m.txt'
+option -firstQuery with value `0'
+option -lastQuery with value `1000'
+option -maxRadius with value `0.400000'
+option -minRadius with value `0.000000'
+option -step with value `0.050000'
+option -verify with value `0'
+option -initialSize with value `100000'
+option -buildMode with value 1
+option -resultsFileName with value `results_search_vector_datasize_100000_buildMode_1_searchMode_1.txt'
+Number of cached nodes:0
+
+===========================================
+Search Ended on  0:44:39.06 2014/12/30 周二, Returned Code: 0 
+
+
+
+
+
+Current Task   : Search Index ( Size: 100000, Search-Mode: 1, Built-Mode: 1 )
+Current Command: "UMAD --runOption search --searchMode 1 --indexName dna_100000_1_v2_f3_m100 --n dna.con --t dna --frag 18 --q dna.con --fq 0 --l 1000 --a 6 --i 0 --y 1 --ver 0 --init 100000 --buildMode 1 --res results_search_dna_datasize_100000_buildMode_1_searchMode_1.txt"
+
+Search Started on  0:44:39.07 2014/12/30 周二
+Std Output:
+===========================================
+
+option -runOption with value `search'
+option -searchMode with value 1
+option -indexName with value dna_100000_1_v2_f3_m100
+option -dataFileName with value `dna.con'
+option -dataType with value `dna'
+option -fragmentLength with value `18'
+option -queryFileName with value `dna.con'
+option -firstQuery with value `0'
+option -lastQuery with value `1000'
+option -maxRadius with value `6.000000'
+option -minRadius with value `0.000000'
+option -step with value `1.000000'
+option -verify with value `0'
+option -initialSize with value `100000'
+option -buildMode with value 1
+option -resultsFileName with value `results_search_dna_datasize_100000_buildMode_1_searchMode_1.txt'
+Number of cached nodes:0
+
+===========================================
+Search Ended on  8:25:57.08 2014/12/30 周二, Returned Code: 0 
+
+
+
+
+
+Current Task   : Search Index ( Size: 100000, Search-Mode: 1, Built-Mode: 1 )
+Current Command: "UMAD --runOption search --searchMode 1 --indexName peptide_100000_1_v2_f3_m100 --n nrall.fasta --t peptide --frag 6 --q nrall.fasta --fq 0 --l 1000 --a 6 --i 0 --y 1 --ver 0 --init 100000 --buildMode 1 --res results_search_peptide_datasize_100000_buildMode_1_searchMode_1.txt"
+
+Search Started on  8:25:57.09 2014/12/30 周二
+Std Output:
+===========================================
+
+option -runOption with value `search'
+option -searchMode with value 1
+option -indexName with value peptide_100000_1_v2_f3_m100
+option -dataFileName with value `nrall.fasta'
+option -dataType with value `peptide'
+option -fragmentLength with value `6'
+option -queryFileName with value `nrall.fasta'
+option -firstQuery with value `0'
+option -lastQuery with value `1000'
+option -maxRadius with value `6.000000'
+option -minRadius with value `0.000000'
+option -step with value `1.000000'
+option -verify with value `0'
+option -initialSize with value `100000'
+option -buildMode with value 1
+option -resultsFileName with value `results_search_peptide_datasize_100000_buildMode_1_searchMode_1.txt'
+Number of cached nodes:0
+
+===========================================
+Search Ended on 13:08:46.27 2014/12/30 周二, Returned Code: 0 
+
+

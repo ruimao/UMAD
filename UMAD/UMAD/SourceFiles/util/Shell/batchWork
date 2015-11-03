@@ -1,0 +1,72 @@
+#!/bin/bash
+BuildMode=""
+SearchMode=""
+Size=""
+DataType=""
+export BuildMode
+export SearchMode
+export Size
+export DataType
+curTime=`date +%T`
+curData=`date +%D`
+build()
+{
+   clear
+   echo "     Index Building Batch Work Started on $curTime $curData"
+   echo "================================================================="
+   echo ""
+   echo ""
+   for dataT in `cat dataType`
+   do
+      DataType=$dataT
+      for buildM in `cat buildMode`
+      do
+         BuildMode=$buildM
+         for dataSize in `cat ./datasize/sizeList_$DataType`
+         do
+            Size=$dataSize
+            source singleBuild
+         done
+		  done
+   done
+   echo ""
+   echo ""
+}
+
+search()
+{
+   clear
+   echo "    Index Searching Batch Work Started on $curTime $curData"
+   echo "================================================================="
+   echo ""
+   echo ""
+   for dataT in `cat dataType`
+   do
+      DataType=$dataT
+      for searchM in `cat searchMode`
+      do
+         SearchMode=$searchM
+         for buildM in `cat buildMode`
+         do
+            BuildMode=$buildM
+            for dataSize in `cat ./datasize/sizeList_$DataType`
+            do
+               Size=$dataSize
+               source singleSearch
+            done
+         done
+      done
+   done
+   echo ""
+   echo ""
+}
+echo "     Enter Build Or Search Option"
+echo "     1) Build"
+echo "     2) Search"
+echo "     *) BuildAndSearch"
+read option
+case $option in
+   1)build;;
+   2)search;;
+   *)build&&search;;
+esac

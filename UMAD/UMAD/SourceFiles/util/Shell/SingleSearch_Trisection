@@ -1,0 +1,50 @@
+#!/bin/bash
+BuildModeName=""
+lastQuery=10
+if [ $BuildMode -eq 0 ]
+ then
+   BuildModeName="LeafToRoot"
+ else
+   BuildModeName="RootToLeaf"
+fi
+case $SearchMode in
+   0)SearchModeName="Inside";;
+   1)SearchModeName="outside";;
+   2)SearchModeName="Forest";;
+esac
+case $DataType in 
+   vector)curCmd="./UMAD --runOption search -searchMode "$SearchMode" --indexName vector_"$Size"_"$BuildModeName"_v2_f3_m100_tR"$tR" --n uniformvector-20dim-1m.txt --t vector --dim 20 --q uniformvector-20dim-1m.txt --fq 0 --l $lastQuery --a $tR --i $tR --y 0.2 --ver 0 --init "$Size" --res results_vector_search_"$BuildModeName"_"$Size"i_"$SearchModeName"_fq0_l"$lastQuery"_a1.6_i0_y0.2_ver0.txt";;
+   string)curCmd="./UMAD --runOption search --searchMode "$SearchMode" --indexName string_"$Size"_"$BuildModeName"_v2_f3_m100_tR"$tR" --n English.dic --t string --dim 2 --q English.dic --fq 0 --l $lastQuery --a $tR --i $tR --y 2 --ver 0 --init "$Size" --res results_string_search_"$BuildModeName"_"$Size"i_"$SearchModeName"_fq0_l"$lastQuery"_a10_i0_y2_ver0.txt";;
+   image)curCmd="./UMAD --runOption search --searchMode "$SearchMode" --indexName image_"$Size"_"$BuildModeName"_v2_f3_m100_tR"$tR" --n allfeas.dat --t image --dim 66 --q allfeas.dat --fq 0 --l $lastQuery --a $tR --i $tR --y 0.05 --ver 0 --init "$Size" --res results_image_search_"$BuildModeName"_"$Size"i_"$SearchModeName"_fq0_l"$lastQuery"_a0.3_i0_y0.05_ver0.txt";;
+   dna)curCmd="./UMAD --runOption search --searchMode "$SearchMode" --indexName dna_"$Size"_"$BuildModeName"_v2_f3_m100_tR"$tR" --n arab1.con --t dna --frag 18 --q arab1.con --fq 0 --l $lastQuery --a $tR --i $tR --y 1 --ver 0 --init "$Size" --res results_dna_search_"$BuildModeName"_"$Size"i_"$SearchModeName"_fq0_l"$lastQuery"_a10_i0_y1_ver0.txt";;
+   peptide)curCmd="./UMAD --runOption search --searchMode "$SearchMode" --indexName peptide_"$Size"_"$BuildModeName"_v2_f3_m100_tR"$tR" --n nrall.fasta --t peptide --frag 6 --q nrall.fasta --fq 0 --l $lastQuery --a $tR --i $tR --y 1 --ver 0 --init "$Size" --res results_peptide_search_"$BuildModeName"_"$Size"i_"$SearchModeName"_fq0_l"$lastQuery"_a10_i0_y1_ver0.txt";;
+esac
+
+
+
+echo "Current Task : Search Index ( Size:$size,SearchMode:$SearchMode,BuildMode:$BuildMode )"
+echo "Current Command :$curCmd"
+echo ""
+startTime=`date +%T`
+startData=`date +%D`
+echo "Search Started on $startTime $startData"
+echo "=============================================="
+echo ""
+cd ../Compile/
+echo "Search Processing......"
+$curCmd
+cd ../Shell/
+echo "=============================================="
+endTime=`date +%T`
+endData=`date +%D`
+echo "Search Ended on $endTime $endData"
+echo ""
+echo ""
+echo ""
+
+
+
+
+
+
+

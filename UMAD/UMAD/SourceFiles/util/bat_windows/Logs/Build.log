@@ -1,0 +1,125 @@
+                 Build Log
+         23:47:07.65 2014/12/29 周一
+===========================================
+
+
+
+Current Task   : Build Index ( Size: 100000, Build-Mode: 1 )
+Current Command: "UMAD --runOption build --buildMode 1 --indexName vector_100000_1_v2_f3_m100 --n uniformvector-20dim-1m.txt --v 2 --f 3 --t vector --e MVPIndex --psm fft --dpm PivotWise --m 100 --init 100000 --F 100000 --s 2000 --dim 6 --res results_vector_build_100000i_1_fft_PivotWise_MVPIndex_v2_f3_m100_dim20.txt --tR 0.1 --sop Sequence --pbop Balance"
+
+Build Started on 23:47:07.66 2014/12/29 周一
+Std Output:
+===========================================
+
+option -runOption with value `build'
+option -buildMode with value 1
+option -indexName with value vector_100000_1_v2_f3_m100
+option -dataFileName with value `uniformvector-20dim-1m.txt'
+option -numPivot with value `2'
+option -singlePivotFanout with value `3'
+option -dataType with value `vector'
+option -listType with value `MVPIndex'
+option -pivotSelectionMethod with value `fft'
+option -partitionMethod with value `PivotWise'
+option -maxLeafSize with value `100'
+option -initialSize with value `100000'
+option -finalSize with value `100000'
+option -stepSize with value `2000'
+option -dim with value `6'
+option -resultsFileName with value `results_vector_build_100000i_1_fft_PivotWise_MVPIndex_v2_f3_m100_dim20.txt'
+option -trisectionRadius with value 0.1
+option -selectOptimalPivots with value `Sequence'
+option -partitionByOnePivot with value `Balance'
+start get mvp-tree structure information!
+ height: 1 nodeNumber: 1 internal node child Number: 9 leaf node child number:0
+ height: 2 nodeNumber: 9 internal node child Number: 81 leaf node child number:0
+ height: 3 nodeNumber: 81 internal node child Number: 729 leaf node child number:0
+ height: 4 nodeNumber: 729 internal node child Number: 0 leaf node child number:2187
+************** total internal node:820 total leaf node:2187
+
+===========================================
+Build Ended on 23:48:22.29 2014/12/29 周一, Returned Code: 0 
+
+
+
+
+
+Current Task   : Build Index ( Size: 100000, Build-Mode: 1 )
+Current Command: "UMAD --runOption build --buildMode 1 --indexName dna_100000_1_v2_f3_m100 --n dna.con --v 2 --f 3 --t dna --e MVPIndex --psm fft --dpm PivotWise --m 100 --init 100000 --F 100000 --s 2000 --frag 18 --res results_dna_build_100000i_1_fft_PivotWise_MVPIndex_v2_f3_m100_frag18.txt --tR 1 --sop Sequence --pbop Balance"
+
+Build Started on 23:48:22.30 2014/12/29 周一
+Std Output:
+===========================================
+
+option -runOption with value `build'
+option -buildMode with value 1
+option -indexName with value dna_100000_1_v2_f3_m100
+option -dataFileName with value `dna.con'
+option -numPivot with value `2'
+option -singlePivotFanout with value `3'
+option -dataType with value `dna'
+option -listType with value `MVPIndex'
+option -pivotSelectionMethod with value `fft'
+option -partitionMethod with value `PivotWise'
+option -maxLeafSize with value `100'
+option -initialSize with value `100000'
+option -finalSize with value `100000'
+option -stepSize with value `2000'
+option -fragmentLength with value `18'
+option -resultsFileName with value `results_dna_build_100000i_1_fft_PivotWise_MVPIndex_v2_f3_m100_frag18.txt'
+option -trisectionRadius with value 1
+option -selectOptimalPivots with value `Sequence'
+option -partitionByOnePivot with value `Balance'
+start get mvp-tree structure information!
+ height: 1 nodeNumber: 1 internal node child Number: 9 leaf node child number:0
+ height: 2 nodeNumber: 9 internal node child Number: 81 leaf node child number:0
+ height: 3 nodeNumber: 81 internal node child Number: 393 leaf node child number:305
+ height: 4 nodeNumber: 698 internal node child Number: 6 leaf node child number:1533
+ height: 5 nodeNumber: 1539 internal node child Number: 0 leaf node child number:18
+************** total internal node:490 total leaf node:1856
+
+===========================================
+Build Ended on 23:50:16.91 2014/12/29 周一, Returned Code: 0 
+
+
+
+
+
+Current Task   : Build Index ( Size: 100000, Build-Mode: 1 )
+Current Command: "UMAD --runOption build --buildMode 1 --indexName peptide_100000_1_v2_f3_m100 --n nrall.fasta --v 2 --f 3 --t peptide --e MVPIndex --psm fft --dpm PivotWise --m 100 --init 100000 --F 100000 --s 2000 --frag 6 --res results_peptide_build_100000i_1_fft_PivotWise_MVPIndex_v2_f3_m100_frag6.txt --tR 1 --sop Sequence --pbop Balance"
+
+Build Started on 23:50:16.92 2014/12/29 周一
+Std Output:
+===========================================
+
+option -runOption with value `build'
+option -buildMode with value 1
+option -indexName with value peptide_100000_1_v2_f3_m100
+option -dataFileName with value `nrall.fasta'
+option -numPivot with value `2'
+option -singlePivotFanout with value `3'
+option -dataType with value `peptide'
+option -listType with value `MVPIndex'
+option -pivotSelectionMethod with value `fft'
+option -partitionMethod with value `PivotWise'
+option -maxLeafSize with value `100'
+option -initialSize with value `100000'
+option -finalSize with value `100000'
+option -stepSize with value `2000'
+option -fragmentLength with value `6'
+option -resultsFileName with value `results_peptide_build_100000i_1_fft_PivotWise_MVPIndex_v2_f3_m100_frag6.txt'
+option -trisectionRadius with value 1
+option -selectOptimalPivots with value `Sequence'
+option -partitionByOnePivot with value `Balance'
+start get mvp-tree structure information!
+ height: 1 nodeNumber: 1 internal node child Number: 9 leaf node child number:0
+ height: 2 nodeNumber: 9 internal node child Number: 81 leaf node child number:0
+ height: 3 nodeNumber: 81 internal node child Number: 338 leaf node child number:351
+ height: 4 nodeNumber: 689 internal node child Number: 35 leaf node child number:1370
+ height: 5 nodeNumber: 1405 internal node child Number: 0 leaf node child number:114
+************** total internal node:464 total leaf node:1835
+
+===========================================
+Build Ended on 23:51:35.00 2014/12/29 周一, Returned Code: 0 
+
+
