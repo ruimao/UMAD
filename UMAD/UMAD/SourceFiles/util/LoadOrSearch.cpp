@@ -306,6 +306,7 @@ void batchBulkLoad(char *&dataFileName,int &numPivot,int setE,int setC,int &sing
 #endif
 
     }
+	output.close();
 
 	//must release these space, because they are dynamic space. see at "joinCharArray" function
     free(resultFileName);
@@ -631,6 +632,8 @@ void buildAndSearch(char *&dataFileName,int &numPivot,int setE,int setC,int &sin
         _search(queryList,cmetric,resultFile,currentIndexName,newDataFileName,dim,fragmentLength,verify,dataType,maxRadius,minRadius,step,searchMode,firstQuery,lastQuery,size,cacheHeight,cacheAll,sThreadNum,numberOfChildrenPathSearchingThreads);
 
     }
+
+	output.close();
 
 	//free dynamic space, see at "joinCharArray" function
 	free(newDataFileName);   

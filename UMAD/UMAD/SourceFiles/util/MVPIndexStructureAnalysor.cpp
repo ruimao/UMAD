@@ -125,8 +125,9 @@ void getMVPIndexStructureInfo(char *&indexFileName,char *& dataType,char *& outp
     cout<<"start get mvp-tree structure information!"<<endl;
 
     string datat(dataType);
-    long filePointer=0;
-    int treeHeight=0;
+    long filePointer=0;//the address of root node
+	int allDataObjectsInIndex = 0;//all data objects in index file
+    int treeHeight=0;// the height of index tree
 
     if(strcmp(dataType,"vector")==0)
     {
@@ -170,8 +171,9 @@ void getMVPIndexStructureInfo(char *&indexFileName,char *& dataType,char *& outp
         exit(0);
     }
 
-    iofilen.seekg(-(long)(sizeof(long)+sizeof(int)),ios::end);
+    iofilen.seekg(-(long)(sizeof(long)+2*sizeof(int)),ios::end);
     iofilen.read((char*)&treeHeight,sizeof(int));
+	iofilen.read((char*)&allDataObjectsInIndex,sizeof(int));
     iofilen.read((char*)&filePointer,sizeof(long));
     iofilen.seekg(filePointer,ios::beg);
 
@@ -1293,11 +1295,12 @@ void cacheIndex(int *height,char* indexfilename,string dataType,unordered_map<lo
 	}
 	
     long rootAddress=0;
-
+	int allDataObjectsInIndex = 0;
     int treeHeight=0;
 
-    infile.seekg(-(long)(sizeof(long)+sizeof(int)),ios::end);
+    infile.seekg(-(long)(sizeof(long)+2*sizeof(int)),ios::end);
     infile.read((char*)(&treeHeight),sizeof(int));
+	infile.read((char*)(&allDataObjectsInIndex),sizeof(int));
     infile.read((char*)(&rootAddress),sizeof(long));
 
     //cout<<"filename:"<<indexfilename<<" rootaddress:"<<rootAddress<<" tree height:"<<treeHeight<<" cache height:"<<*height<<endl;
