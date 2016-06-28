@@ -6,6 +6,7 @@
 #include"../../../HeaderFiles/metricdistance/MetricDistance.h"
 #include "../../../HeaderFiles/metricdata/DoubleVector.h"
 #include"../../classifier/util/MetricDataFormat.h"
+#include"../../../HeaderFiles/metricdata/TimeSeries.h"
 
 #include "../../metricdistance/DNAMetric.h"
 #include "../../metricdistance/EditDistance.h"
@@ -14,6 +15,7 @@
 #include "../../metricdistance/PeptideMetric.h"
 #include "../../metricdistance/CountedMetric.h"
 #include "../../metricdistance/LInfinityDistance.h"
+#include "../../metricdistance/TimeSeriesMetric.h"
 
 #include <fstream>
 #include <string>
@@ -53,9 +55,10 @@ public:
      *@ param pivotNum: the number of pivots
 	 *@ param pivotsFileName: the file to store the selected pivots information.
 	 *@ param dim  dimension of vector data to load or number of features to be loaded.
+	 *@ param coordinate the number coordinate of sampling point.
 	 *@ return: return an vector contains the distance between each training sample and pivots 
 	 */
-	 GetMetricData getMetricTrainData(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel,CMetricDistance *metric,CPivotSelectionMethod *pivotSelectionMethod,int pivotNum,char *pivotsFileName,int dim);
+	 GetMetricData getMetricTrainData(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel,CMetricDistance *metric,CPivotSelectionMethod *pivotSelectionMethod,int pivotNum,char *pivotsFileName,int dim,int coordinate);
 
 	 /**
 	 *@ select 1/10 data from train data to be the test data,return the test data in metric space

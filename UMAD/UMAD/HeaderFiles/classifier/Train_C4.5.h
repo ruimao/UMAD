@@ -18,6 +18,7 @@
 #include <sys/stat.h>
 #include <malloc.h>
 #include <cstdlib>
+#include <algorithm>
 
 #include"../../HeaderFiles/classifier/Train.h"
 #include"../../HeaderFiles/classifier/util/MetricDataFormat.h"
@@ -85,6 +86,8 @@ public:
 	/*									 */
 	/*************************************************************************/
 	Descript GetDescription(int itemNo,GetMetricData Df);
+
+	void buildNameFile(vector<string> trainDataLabel,int pivotNum,string trainDataFileName);
 
 	/*************************************************************************/
 	/*									 */
@@ -586,8 +589,9 @@ public:
 	 *@ param pivotNum: the number of pivots
 	 *@ param pivotsAndTrainModelFileName: the file to store the selected pivots information and training model.
 	 *@ param dim  dimension of vector data to load or number of features to be loaded.
+	 *@ param coordinate the number coordinate of sampling point.
 	*/
-	void TrainModel(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel, CMetricDistance *metric,CPivotSelectionMethod *pivotselectionmethod, int pivotNum,char *pivotsAndTrainModelFileName,char *trainDataFileName,int dim);
+	void TrainModel(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel, CMetricDistance *metric,CPivotSelectionMethod *pivotselectionmethod, int pivotNum,char *pivotsAndTrainModelFileName,char *trainDataFileName,int dim,int coordinate);
 
 	ItemNo	MaxItem;	/* max data item number */
 	

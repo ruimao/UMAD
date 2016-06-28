@@ -66,8 +66,32 @@ public:
  *@ param pivotNum: the number of pivots
  *@ param pivotsAndTrainModelFileName: the file to store the selected pivots information and training model.
  *@ param dim  dimension of vector data to load or number of features to be loaded.
+ *@ param coordinate the number coordinate of sampling point.
 */
-	 void TrainModel(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel, CMetricDistance *metric,CPivotSelectionMethod *pivotselectionmethod, int pivotNum,char *pivotsAndTrainModelFileName,int dim);
+	 void TrainModel(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel, CMetricDistance *metric,CPivotSelectionMethod *pivotselectionmethod, int pivotNum,char *pivotsAndTrainModelFileName,int dim,int coordinate);
+
+
+/**
+ *@ get training model with ten cross validation of classification algorithm.
+ *@ param classifyMethod  classifymethod: "knn" , "naviebayes".
+ *@ param traindata: the primary trainging data.
+ *@ param trainDataLabel: the class label of primary training data.
+ *@ param metric: distance function.
+ *@ param pivotSelectionMethod: the pivot selection method: "random", "fft", "center", "pcaonfft", "pca","incremental".
+ *@ param pivotNum: the number of pivots
+ *@ param pivotsAndTrainModelFileName: the file to store the selected pivots information and training model.
+ *@ param dim  dimension of vector data to load or number of features to be loaded.
+ *@ param coordinate the number coordinate of sampling point.
+*/
+	 void TrainModelUseCrossValidation(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel, CMetricDistance *metric,CPivotSelectionMethod *pivotselectionmethod, int pivotNum,char *pivotsAndTrainModelFileName,int dim,int coordinate);
+
+/**
+ *@show classification result
+ *@infilename: the training set under metric space that after pivot selection and distance calculation
+ *@outfilename: outfilename is going to store the classify result
+ *@ param pivotNum: the number of pivots
+ */
+	 void showClassifierModel_CrossValidation(GetMetricData M_traindata,const char* outfilename, int pivotNum);
 };
 
 #endif

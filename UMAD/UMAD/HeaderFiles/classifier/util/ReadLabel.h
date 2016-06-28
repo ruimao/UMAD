@@ -30,7 +30,7 @@ public:
  *@ param fileName: fileName is the primary data file that store attribute and class label
  *@ param maxDataNum: the total number of the data list
  */
-	static vector<string> loadLabel(string fileName,int maxDataNum);
+	static vector<string> loadLabel(string fileName,int maxDataNum,string dataType);
 };
 
 #endif

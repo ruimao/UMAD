@@ -16,7 +16,7 @@
 //#define  ATTR_NUM  3                  //the number of attribute
 //#define  MAX_SIZE_OF_TRAINING_SET  21000      //maxsize of training set
 //#define  MAX_SIZE_OF_TEST_SET      21000       //maxsize of test set
-#define  MAX_VALUE  10000.0                  //maxvalue of attribute
+#define  MAX_VALUE  1000000000.0                  //maxvalue of attribute
 //#define  K  7
 using namespace std;
 

@@ -47,14 +47,14 @@ public:
 	/*************************************************************************/
 	short Category(Descript CaseDesc,Tree DecisionTree,short VERBOSITY);
 
-	void PrintConfusionMatrix(ItemNo *ConfusionMat);
+	void PrintConfusionMatrix(ItemNo *ConfusionMat,ofstream &outfile);
 
 	/*************************************************************************/
 	/*									 */
 	/*	Print report of errors for each of the trials			 */
 	/*									 */
 	/*************************************************************************/
-	void Evaluate(Boolean CMInfo,short Saved,short TRIALS,short VERBOSITY,GetMetricData data,char *pivotsAndTrainModelFileName);
+	void Evaluate(Boolean CMInfo,short Saved,short TRIALS,short VERBOSITY,GetMetricData data,char *pivotsAndTrainModelFileName,char *testModelFileName);
 
 
 	/*************************************************************************/

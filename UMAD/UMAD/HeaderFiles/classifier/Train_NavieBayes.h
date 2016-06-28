@@ -32,6 +32,7 @@ class CTrain_NavieBayes:public CTrain
 public:
 	CTrain_NavieBayes();
 	~CTrain_NavieBayes();
+	void buildNameFile(vector<string> trainDataLabel,int pivotNum,string trainDataFileName);
 	void getname(string names);
 	void getdata(GetMetricData data);
 	double SplitContinuousAtt(int AttNo);//continuous feature discretization
@@ -72,8 +73,9 @@ public:
 	 *@ param pivotNum: the number of pivots
 	 *@ param pivotsAndTrainModelFileName: the file to store the selected pivots information and training model.
 	 *@ param dim  dimension of vector data to load or number of features to be loaded.
+	 *@ param coordinate the number coordinate of sampling point.
 	*/
-	 void TrainModel(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel, CMetricDistance *metric,CPivotSelectionMethod *pivotselectionmethod, int pivotNum,char *pivotsAndTrainModelFileName,char *trainDataFileName,int dim);
+	 void TrainModel(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel, CMetricDistance *metric,CPivotSelectionMethod *pivotselectionmethod, int pivotNum,char *pivotsAndTrainModelFileName,char *trainDataFileName,int dim,int coordinate);
 
 private:
 	FILE *Nf;
