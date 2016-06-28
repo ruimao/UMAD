@@ -1,4 +1,5 @@
 #include"../../../HeaderFiles/classifier/util/DatasetInMetricSpace.h"
+#include "../../../HeaderFiles/metricdata/DNA_Classify.h"
 
 /**@brief none parameter constructor*/
 CDatasetInMetricSpace::CDatasetInMetricSpace()
@@ -270,7 +271,7 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTrainData(char *class
 			infile >> attNum;
 			int dnaSymbol=0;
 			vector<int> data;
-			shared_ptr<CDNA> temp = shared_ptr<CDNA>();
+			shared_ptr<CDNA_CLASSIFY> temp = shared_ptr<CDNA_CLASSIFY>();
 			for(int i=0;i<2*pivotsNum-1;++i)
 			{
 				if(i%2==0)
@@ -280,7 +281,7 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTrainData(char *class
 						infile >> dnaSymbol;
 						data.push_back(dnaSymbol);
 					}
-					temp.reset(new CDNA("promoters",data));              
+					temp.reset(new CDNA_CLASSIFY("promoters",data));              
 					pivots->push_back(temp);
 					data.clear();
 				}
@@ -501,7 +502,7 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTestData(char *classi
 			infile >> attNum;
 			int dnaSymbol=0;
 			vector<int> data;
-			shared_ptr<CDNA> temp = shared_ptr<CDNA>();
+			shared_ptr<CDNA_CLASSIFY> temp = shared_ptr<CDNA_CLASSIFY>();
 			for(int i=0;i<2*pivotsNum-1;++i)
 			{
 				if(i%2==0)
@@ -511,7 +512,8 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTestData(char *classi
 						infile >> dnaSymbol;
 						data.push_back(dnaSymbol);
 					}
-					temp.reset(new CDNA("promoters",data));              
+					//temp.reset(new CDNA("promoters",data));              
+					temp.reset(new CDNA_CLASSIFY("promoters",data));
 					pivots->push_back(temp);
 					data.clear();
 				}
