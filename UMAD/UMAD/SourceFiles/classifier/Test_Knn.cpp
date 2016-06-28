@@ -1,6 +1,6 @@
 #include"../../HeaderFiles/classifier/Test_Knn.h"
 
-extern void joinCharArray(char*&dest,char *sor);
+extern void joinCharArray(char*&dest,const char *sor);
 
 CTest_Knn::CTest_Knn()
 {
