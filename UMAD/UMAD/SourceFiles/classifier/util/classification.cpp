@@ -53,7 +53,7 @@
 
 using namespace std;
 
-extern void joinCharArray(char*&dest,char *sor);
+extern void joinCharArray(char*&dest,const char *sor);
 
 void Train(char *dataType,char *disfun,char *pivotSelectionMethod,int numPivot,char *classifyMethod,char *trainDataFileName,int initialSize,int dim,char *pivotsAndTrainModelFileName,int coordinate)
 {
