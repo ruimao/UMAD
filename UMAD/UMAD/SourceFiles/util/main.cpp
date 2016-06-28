@@ -31,9 +31,9 @@
 
 using namespace std;
 
-
-extern void IndexFun(char *runOption,char *dataFileName,int numPivot,int setE,int setC,int singlePivotFanout,int fftscale,char *pivotSelectionMethod,char *partitionMethod,int maxLeafSize,char *dataType,int initialSize,int finalSize,int stepSize,bool bucket,int fragmentLength,int dim,double maxR,char *indexType,int fftopt,char *queryFileName,int firstQuery,int lastQuery,double maxRadius,double minRadius,double step,bool verify,char *resultsFileName,int buildMode,char *indexName,int searchMode,double MF_maxRadius,double MF_middleProportion,bool putinfo,int cacheHeight,int tsThreadNum,bool cacheAll,int bThreadNum,double trisectionRadius,char *selectOptimalPivots,char *partitionByOnePivot,int csThreadNum);
-extern void ClassificationFun(char *runModel,char *dataType,char *disfun,char *pivotSelectionMethod,int numPivot,char *classifyMethod,char *trainDataFileName,int initialSize,char *testDataFileName,int finalSize,int dim,char *pivotsAndTrainModelFileName,char *testModelFileName,int status,int k,int splitRatio);
+extern void resultfilename(int buildMode,char *dataFileName,int numPivot,int setE,int setC,int singlePivotFanout,int fftscale,char *pivotSelectionMethod,char *partitionMethod,int maxLeafSize,char *dataType,int initialSize,int finalSize,	int stepSize,bool bucket,int fragmentLength,int dim,double maxR,char *indexType,int fftopt,char *indexName,char* queryFileName,int firstQuery,int lastQuery,double maxRadius,double minRadius,double step,bool verify,char *resultsFileName,char *runOption,int searchMode,double MF_maxRadius,double MF_middleProportion);
+extern void IndexFun(char *runOption,char *dataFileName,int numPivot,int setE,int setC,int singlePivotFanout,int fftscale,char *pivotSelectionMethod,char *partitionMethod,int maxLeafSize,char *dataType,int initialSize,int finalSize,int stepSize,bool bucket,int fragmentLength,int dim,double maxR,char *indexType,int fftopt,char *queryFileName,int firstQuery,int lastQuery,double maxRadius,double minRadius,double step,bool verify,char resultsFileName[500],int buildMode,char *indexName,int searchMode,double MF_maxRadius,double MF_middleProportion,bool putinfo,int cacheHeight,int tsThreadNum,bool cacheAll,int bThreadNum,double trisectionRadius,char *selectOptimalPivots,char *partitionByOnePivot,int csThreadNum);		
+extern void ClassificationFun(char *runModel,char *dataType,char *disfun,char *pivotSelectionMethod,int numPivot,char *classifyMethod,char *trainDataFileName,int initialSize,char *testDataFileName,int finalSize,int dim,char *pivotsAndTrainModelFileName,char *testModelFileName,int status,int k,int splitRatio,int coordinate);
 template<typename type>
 type stringToNumber(const char str[])
 {
@@ -59,7 +59,7 @@ type stringToNumber(const char str[])
 * @param psm the pivot selection method: "random", "fft", "center", "pcaonfft", "pca","incremental".
 * @param dpm data partition method: "balanced", "clusteringkmeans", "clusteringboundary","excludedmiddle","cght","ght".
 * @param m maximum number of objects in leaf nodes.
-* @param t data type, one of "peptide", "dna", "vector", "image", "msms","string".
+* @param t data type, one of "peptide", "dna", "vector", "image", "msms","string","time_series".
 * @param init size of smallest database.
 * @param F size of largest database.
 * @param s step size of databases.
@@ -83,12 +83,13 @@ type stringToNumber(const char str[])
 * @param runM runModel[train,test,trainandtest]:input "train" to trainging a classification model and input "test" if you want to do test in the classification model trained before.
 * @param trainDFN the traindata file name.
 * @param testDFN the testdata file name.
-* @param disFun the distance function: "EuclideanDistance" , "EditDistance" , "LInfinityDistance".
+* @param disFun the distance function: "EuclideanDistance" , "EditDistance" , "LInfinityDistance" , "TimeSeriesMetric".
 * @param classifyMethod classifymethod: "knn" , "naviebayes" , "c4.5".
 * @param ptFN the file to store pivots information and training model.
 * @param testMFN the file to store test classificaiton model result.
 * @param status determine the source of the test data. 0: TestDataFromTrainData; 1: TestDataFromTestData.
 * @param splitRatio: use maxLeafsize(m) represent splitRatio.Decide how much data from a training set as test set.
+//* @param coordinate the number coordinate of sampling point.
 */
 
 int main(int argc, char** argv)
@@ -123,9 +124,9 @@ int main(int argc, char** argv)
 
 	char *dataType="vector";
 
-	int initialSize = 10000;
+	int initialSize = 20000;
 
-	int finalSize = 10000;	
+	int finalSize = 20000;	
 
 	int stepSize = 20000;	
 
@@ -141,7 +142,7 @@ int main(int argc, char** argv)
 
 	int fftopt=0;
 
-	char indexName[500]="";
+	char *indexName="vector_index_PivotWise";
 
 	char* queryFileName="uniformvector-20dim-1m.txt";
 
@@ -157,9 +158,11 @@ int main(int argc, char** argv)
 
 	bool verify=false;
 
-	char resultsFileName[500]="";
+	//char *resultsFileName="resultsfile.txt";
 
-	//strcpy(resultsFileName,"result/");
+	char resultsFileName[500];
+
+	strcpy(resultsFileName,"result/");
 
 	char *runOption="buildandsearch";
 
@@ -169,7 +172,7 @@ int main(int argc, char** argv)
 
 	double MF_middleProportion = 0.5; 
 
-    bool putinfo = false;
+	bool putinfo = true;
 
 	int cacheHeight=3;
 
@@ -198,6 +201,8 @@ int main(int argc, char** argv)
 	int status = 1;
 
 	int k = 7;
+
+	//int coordinate = 1;
 
 	while (1)
 	{		
@@ -305,7 +310,10 @@ int main(int argc, char** argv)
 
 			{"status", ARG_REQ, 0, 'N'},
 
-			{"k" , ARG_REQ, 0, 'k'}
+			{"k" , ARG_REQ, 0, 'k'},
+
+			//{"ab", ARG_REQ, 0, 'ab'}
+
 
 			/*{ ARG_NULL , ARG_NULL , ARG_NULL , ARG_NULL }*/
 
@@ -384,7 +392,7 @@ int main(int argc, char** argv)
 
 		case ('B'):	
 
-			//indexName = new char[strlen(optarg_a)+1];
+			indexName = new char[strlen(optarg_a)+1];
 
 			strcpy(indexName,optarg_a);
 
@@ -783,6 +791,14 @@ int main(int argc, char** argv)
 
 			break;
 
+		/*case ('ab'):	
+
+			coordinate = stringToNumber<int>(optarg_a);
+
+			cout<<"option -coord with value " << coordinate << endl;
+
+			break;*/
+
 		case '?':
 
 			/* getopt_long already printed an error message. */
@@ -813,14 +829,16 @@ int main(int argc, char** argv)
 
 	if(strcmp(task,"index")==0 || strcmp(task,"i")==0)
 	{		
-		
+
+		resultfilename(buildMode,dataFileName,numPivot,setE,setC,singlePivotFanout,fftscale,pivotSelectionMethod,partitionMethod,maxLeafSize,dataType,initialSize,finalSize,stepSize,bucket,fragmentLength,dim,maxR,indexType,fftopt,indexName,queryFileName,firstQuery,lastQuery,maxRadius,minRadius,step,verify,resultsFileName,runOption,searchMode,MF_maxRadius,MF_middleProportion);
+
 		IndexFun(runOption,dataFileName,numPivot,setE,setC,singlePivotFanout,fftscale,pivotSelectionMethod,partitionMethod,maxLeafSize,dataType,initialSize,finalSize,stepSize,bucket,fragmentLength,dim,maxR,indexType,fftopt,queryFileName,firstQuery,lastQuery,maxRadius,minRadius,step,verify,resultsFileName,buildMode,indexName,searchMode,MF_maxRadius,MF_middleProportion,putinfo,cacheHeight,tsThreadNum,cacheAll,bThreadNum,trisectionRadius,selectOptimalPivots,partitionByOnePivot,csThreadNum);
 	
 	}
 	else if(strcmp(task,"classification")==0 || strcmp(task,"c")==0)
 	{
 		
-		ClassificationFun(runModel,dataType,disfun,pivotSelectionMethod,numPivot,classifyMethod,trainDataFileName,initialSize,testDataFileName,finalSize,dim,pivotsAndTrainModelFileName,testModelFileName,status,k,maxLeafSize);
+		ClassificationFun(runModel,dataType,disfun,pivotSelectionMethod,numPivot,classifyMethod,trainDataFileName,initialSize,testDataFileName,finalSize,dim,pivotsAndTrainModelFileName,testModelFileName,status,k,maxLeafSize,searchMode);
 	
 	}
 	else if(strcmp(task,"outliers")==0 || strcmp(task,"o")==0)
