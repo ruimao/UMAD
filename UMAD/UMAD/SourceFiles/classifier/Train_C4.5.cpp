@@ -209,6 +209,41 @@ Descript C4_5::GetDescription(int itemNo,GetMetricData Df)
 	return Dvec;
 }
 
+void C4_5::buildNameFile(vector<string> trainDataLabel,int pivotNum,string trainDataFileName)
+{
+	/* Get the name of the data set */
+	int n=trainDataFileName.find_last_of('.');
+	trainDataFileName=trainDataFileName.substr(0,n);
+	trainDataFileName += ".names";
+
+	/* Calculate the number of class label and Get the class label*/
+	vector<string> dataLabel;
+	dataLabel = trainDataLabel;
+	sort(dataLabel.begin(),dataLabel.end());
+	vector<string>::iterator ite_end;
+
+	ite_end = unique(dataLabel.begin(),dataLabel.end());
+	dataLabel.erase(ite_end,dataLabel.end());
+
+	/* Build the .names file */
+	ofstream outfile(trainDataFileName,ofstream::out);
+	for(auto i=dataLabel.begin(); i<dataLabel.end(); ++i)
+	{
+		if(i == (dataLabel.end()-1))
+			outfile << *i <<"."<<endl;
+		else
+			outfile << *i <<",";
+	}
+
+	for(int j=0; j<pivotNum; ++j)
+	{
+		outfile << "P" << j+1 << ":continuous."<<endl;
+	}
+
+	outfile.close();
+
+}
+
 /*************************************************************************/
 /*									 */
 /*  Read the names of classes, attributes and legal attribute values.	 */
@@ -3197,16 +3232,20 @@ void C4_5::SaveTree(Tree T,char *FileName)
  *@ param pivotNum: the number of pivots
  *@ param pivotsAndTrainModelFileName: the file to store the selected pivots information and training model.
  *@ param dim  dimension of vector data to load or number of features to be loaded.
+ *@ param coordinate the number coordinate of sampling point.
  */
-void C4_5::TrainModel(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel, CMetricDistance *metric,CPivotSelectionMethod *pivotselectionmethod, int pivotNum,char *pivotsAndTrainModelFileName,char *trainDataFileName,int dim)
+void C4_5::TrainModel(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel, CMetricDistance *metric,CPivotSelectionMethod *pivotselectionmethod, int pivotNum,char *pivotsAndTrainModelFileName,char *trainDataFileName,int dim,int coordinate)
 {
 	CDatasetInMetricSpace getTrainData;
 	GetMetricData M_traindata;
-	M_traindata=getTrainData.getMetricTrainData(classifyMethod,traindata,trainDataLabel,metric,pivotselectionmethod,pivotNum,pivotsAndTrainModelFileName,dim);
+	M_traindata=getTrainData.getMetricTrainData(classifyMethod,traindata,trainDataLabel,metric,pivotselectionmethod,pivotNum,pivotsAndTrainModelFileName,dim,coordinate);
 
 	printf("decision tree generator");
 
 	/*  Initialise  */
+
+	buildNameFile(trainDataLabel,pivotNum,trainDataFileName);
+
 	GetNames(trainDataFileName);
 	if(MaxAtt+1 != pivotNum)
 	{

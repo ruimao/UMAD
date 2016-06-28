@@ -177,7 +177,7 @@ ClassNo CTest_C4_5::Category(Descript CaseDesc,Tree DecisionTree,short VERBOSITY
     return BestClass;
 }
 
-void CTest_C4_5::PrintConfusionMatrix(ItemNo *ConfusionMat)
+void CTest_C4_5::PrintConfusionMatrix(ItemNo *ConfusionMat,ofstream &outfile)
 {
     short Row, Col;
 
@@ -186,35 +186,47 @@ void CTest_C4_5::PrintConfusionMatrix(ItemNo *ConfusionMat)
     /*  Print the heading, then each row  */
 
     printf("\n\n\t");
+	outfile << "\n\n      " ;
+
     ForEach(Col, 0, MaxClass-1)
     {
-	printf("  (%c)", 'a' + Col);
+		printf("  (%c)", 'a' + Col);
+		outfile << "   (" << Col << ")" ;
     }
 
     printf("\t<-classified as\n\t");
+	outfile << "\t<-classified as\n\t" ;
+
     ForEach(Col, 0, MaxClass-1)
     {
-	printf(" ----");
+		printf(" ----");
+		outfile << " ----" ;
     }
     printf("\n");
+	outfile << "\n" ;
 
     ForEach(Row, 0, MaxClass-1)
     {
 		printf("\t");
+		outfile << "\t  " ;
 		ForEach(Col, 0, MaxClass-1)
 		{
 			if ( ConfusionMat[Row*(MaxClass) + Col] )
 			{
 				printf("%5d", ConfusionMat[Row*(MaxClass) + Col]);
+				outfile << ConfusionMat[Row*(MaxClass) + Col] ;
 			}
 			else
 			{
 				printf("     ");
+				outfile << "     " ;
 			}
 		}
 		printf("\t(%c): class %s\n", 'a' + Row, ClassName[Row]);
+		outfile << "\t(" << Row << ")"<< ": class " << ClassName[Row] << endl;
 	}
 	printf("\n");
+	outfile << "\n" ;
 }
 
 
@@ -223,7 +235,7 @@ void CTest_C4_5::PrintConfusionMatrix(ItemNo *ConfusionMat)
 /*	Print report of errors for each of the trials			 */
 /*									 */
 /*************************************************************************/
-void CTest_C4_5::Evaluate(Boolean CMInfo,short Saved,short TRIALS,short VERBOSITY,GetMetricData data,char *pivotsAndTrainModelFileName)
+void CTest_C4_5::Evaluate(Boolean CMInfo,short Saved,short TRIALS,short VERBOSITY,GetMetricData data,char *pivotsAndTrainModelFileName,char *testModelFileName)
 /*  --------  */
 {
 	GetTree(pivotsAndTrainModelFileName);
@@ -249,6 +261,11 @@ void CTest_C4_5::Evaluate(Boolean CMInfo,short Saved,short TRIALS,short VERBOSIT
 	//}
     printf("\tSize      Errors   Size      Errors   Estimate\n\n");
 
+	ofstream outfile(testModelFileName);
+	outfile << "\t Before Pruning           After Pruning\n" ;
+	outfile << "\t----------------   ---------------------------\n" ;
+	outfile << "\tSize      Errors   Size      Errors   Estimate\n\n" ;
+
     ForEach(t, 0, TRIALS-1)
     {
 		RawErrors = PrunedErrors = 0;
@@ -273,13 +290,19 @@ void CTest_C4_5::Evaluate(Boolean CMInfo,short Saved,short TRIALS,short VERBOSIT
 		//printf("\t%4d", t);
 
 		printf("\t%4d  %3d(%4.1f%%)   %4d  %3d(%4.1f%%)    (%4.1f%%)%s\n",
-	       TreeSize(Raw[t]), RawErrors, 100.0*RawErrors / ((MaxTestItem-1)+1.0),
-	       TreeSize(Pruned[t]), PrunedErrors, 100.0*PrunedErrors / ((MaxTestItem-1)+1.0),
+	       TreeSize(Raw[t]), RawErrors, 100.0*RawErrors / (MaxTestItem+1),
+	       TreeSize(Pruned[t]), PrunedErrors, 100.0*PrunedErrors / (MaxTestItem+1),
 	       100 * Pruned[t]->Errors / Pruned[t]->Items,
 	       ( t == Saved ? "   <<" : "" ));
+		outfile << "\t" << TreeSize(Raw[t]);
+		outfile << "  \t" << RawErrors << "< " << 100.0*RawErrors / (MaxTestItem+1) << " %>" ; 
+		outfile << "\t " << TreeSize(Pruned[t]);
+		outfile << "\t"<< PrunedErrors << "< " << 100.0*PrunedErrors / (MaxTestItem+1) << " %>";
+		outfile <<"\t" << "< " << 100 * Pruned[t]->Errors / Pruned[t]->Items << " %>" << ( t == Saved ? "   <<" : "" ) ;
     }
 
-	PrintConfusionMatrix(ConfusionMat);
+	PrintConfusionMatrix(ConfusionMat,outfile);
+	outfile.close();
 	free(ConfusionMat);
 }
 
@@ -438,7 +461,7 @@ void CTest_C4_5::GetTree(char *pivotsAndTrainModelFileName)
 	if(!infile)
 	{
 		cout<<"Open training model file "<<pivotsAndTrainModelFileName<<"failed!"<<endl;
-		exit(0);
+		exit(1);
 	}
 
 	string str="";	
@@ -489,8 +512,8 @@ void CTest_C4_5::TestModel(char *classifyMethod,vector<shared_ptr<CMetricData> >
 
 	int pivotsNum=getTestData.pivotsNum;
 
-	Evaluate(status, Best,TRIALS,VERBOSITY,M_testdata,pivotsAndTrainModelFileName);
-#ifdef _WIN32
-	system("pause");
-#endif
+	Evaluate(status, Best,TRIALS,VERBOSITY,M_testdata,pivotsAndTrainModelFileName,testModelFileName);
+//#ifdef _WIN32
+//	system("pause");
+//#endif
 }

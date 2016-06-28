@@ -1,5 +1,7 @@
 #include"../../HeaderFiles/classifier/Test_Knn.h"
 
+extern void joinCharArray(char*&dest,char *sor);
+
 CTest_Knn::CTest_Knn()
 {
 	curTrainingSetSize=0;                                 //size of training set
@@ -36,7 +38,7 @@ double CTest_Knn::LDistance(struct dataVector vect1,struct dataVector vect2)
 	{
 		double temp;
 		temp=fabs(vect1.attributes[i]-vect2.attributes[i]);
-		values[i]=temp;
+		values.push_back(temp);
 	}
 	for(int j=0;j<vect1.attributes.size();++j)
 	{
@@ -65,7 +67,7 @@ int CTest_Knn::GetMaxDistance(int k)
 string CTest_Knn::Classify(struct dataVector Sample,int k)
 {
 	double dist=0;
-	int maxid=0,i,tmpfreq=1; //freq[k] store the number of each class apperaed in k-nearest nighbour
+	int maxid=0,i,tmpfreq=0; //freq[k] store the number of each class apperaed in k-nearest nighbour
 	vector<int> freq;
 	distanceStruct gND;
 	string curClassLable = " ";
@@ -84,7 +86,8 @@ string CTest_Knn::Classify(struct dataVector Sample,int k)
 	for(i=0;i<curTrainingSetSize;i++)
 	{
 		//step.2.1---calculate the distance between unclassification sample and each training sample
-		dist=euclideanDistance(gTrainingSet[i],Sample);
+		//dist=euclideanDistance(gTrainingSet[i],Sample);
+		dist=LDistance(gTrainingSet[i],Sample);
 		//step.2.2---get the max distance in gNearestDistance
 		maxid=GetMaxDistance(k);
 		//step.2.3---if the dist less than the maxdistance in gNearestDistance，it will be one of k-nearest neighbour 
@@ -145,11 +148,12 @@ void CTest_Knn::showClassiciationResult(char *trainingModelFileName,GetMetricDat
 	{
 		infile>>str;
 	}
-	while(!infile.eof())
+	while(infile >> att)
 	{
+		getTS.attributes.push_back(att);
 		modelRowNo++;
 		getTS.ID = modelRowNo;
-		for(int i = 0; i < pivotNumber; ++i)
+		for(int i = 0; i < (pivotNumber-1); ++i)
 		{
 			infile >> att;
 			getTS.attributes.push_back(att);
@@ -186,14 +190,12 @@ void CTest_Knn::showClassiciationResult(char *trainingModelFileName,GetMetricDat
 	{
 		outfile<<"************************************ No:"<<i+1<<" test data**************************************"<<endl;
 		classLabel =Classify(gTestSet[i],k);
-                string cx="";
-                string cxx;
 	    if(Classify(gTestSet[i],k).compare(gTestSet[i].classLabel)==0)
 		{
 			TruePositive++;
 		}
 		
-		outfile<<"rowNo:  "<<gTestSet[i].ID<<"   \t  KNN穞est result:  "<<classLabel<<"  ( true class label:  "<<gTestSet[i].classLabel<<" )"<<endl;
+		outfile<<"rowNo:  "<<gTestSet[i].ID<<"   \t  KNN test result:  "<<classLabel<<"  ( true class label:  "<<gTestSet[i].classLabel<<" )"<<endl;
 		if(Classify(gTestSet[i],k).compare(gTestSet[i].classLabel)!=0)
 		{
 			outfile<<"                                                                      *** Wrong ***"<<endl;
@@ -210,6 +212,12 @@ void CTest_Knn::showClassiciationResult(char *trainingModelFileName,GetMetricDat
     FalsePositive=curTestSetSize-TruePositive;
 	outfile<<"*********************************** result analyze **************************************"<<endl;
 	outfile<<"TP(True positive): "<<TruePositive<<endl<<"FP(False positive): "<<FalsePositive<<endl<<"accuracy: "<<float(TruePositive)/(curTestSetSize)<<endl;
+	
+    //将测试结果放入文件knn_testResult.txt中
+	ofstream resultFile("./SourceFiles/util/result/knn_testResult.txt",ofstream::app);
+	resultFile << float(TruePositive)/(curTestSetSize) << endl;
+	resultFile.close();
+
 	outfile.close();
   
 }

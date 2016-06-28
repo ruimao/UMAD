@@ -21,20 +21,24 @@ vector<string> split(string &s,char delim)
  *@ param fileName: fileName is the primary data file that store attribute and class label
  *@ param maxDataNum: the total number of the data list
  */
-vector<string> CReadLabel::loadLabel(string fileName,int maxDataNum)
+vector<string> CReadLabel::loadLabel(string fileName,int maxDataNum,string dataType)
 {
 	string str;
 	ifstream in(fileName);
 	//vector <string> data;
 	vector <string> trainDataLabel;
-	int num,dim;
 
 	if(!in)
 	{
 		cout<<"can't open the file."<<endl;
 	}
-	in>>dim>>num;
-	getline(in,str);
+
+	if(dataType == "vector")
+	{
+		int num,dim;
+		in>>dim>>num;
+		getline(in,str);
+	}
 
 	for(int i=0;i<maxDataNum;i++)
 	{
@@ -44,7 +48,7 @@ vector<string> CReadLabel::loadLabel(string fileName,int maxDataNum)
 		string temp=data.back();
 #endif
 #ifdef __GNUC__
-		string temp=data.back().substr(0,data.back().size()-1);
+		string temp=data.back().substr(0,data.back().size()-1); 
 #endif
 		trainDataLabel.push_back(temp);
 	}

@@ -2,7 +2,7 @@
 #include"../../HeaderFiles/classifier/util/GetValue.h"
 #define space(s) (s == ' ' || s == '\n' || s == '\t')
 #define  SkipComment	while ( ( c = getc(f) ) != '\n' )
-#define p 1/3
+#define p 0.005
 //#define _SCL_SECURE_NO_WARNINGS  
 
 #pragma warning(disable:4996)   
@@ -217,7 +217,7 @@ Description CTest_NavieBayes::GetDescription(int itemNo,GetMetricData Df)
 	int AttNo;/* attribute number, 0..MaxAttNo */
 	int Dv=0;
     Description Dvec;
-    Dvec = (Description)calloc(MaxTestItemNo*2, sizeof(AttValue));
+    Dvec = (Description)calloc(MaxAttNo*2, sizeof(AttValue));
     for(AttNo=0;AttNo<MaxAttNo;AttNo++)
     {
 		/*  Continuous value  */

@@ -22,9 +22,10 @@ CDatasetInMetricSpace::~CDatasetInMetricSpace()
 *@ param pivotNum: the number of pivots
 *@ param pivotsFileName: the file to store the selected pivots information.
 *@ param dim  dimension of vector data to load or number of features to be loaded.
+*@ param coordinate the number coordinate of sampling point.
 *@ return: return an vector contains the distance between each sample and pivots 
 */
-GetMetricData CDatasetInMetricSpace::getMetricTrainData(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel,CMetricDistance *metric,CPivotSelectionMethod *pivotSelectionMethod,int pivotNum,char *pivotsAndTrainModelFileName,int dim)
+GetMetricData CDatasetInMetricSpace::getMetricTrainData(char *classifyMethod,vector<shared_ptr<CMetricData> > *traindata,vector<string> trainDataLabel,CMetricDistance *metric,CPivotSelectionMethod *pivotSelectionMethod,int pivotNum,char *pivotsAndTrainModelFileName,int dim,int coordinate)
 {
 	GetMetricData M_traindata;
 	ofstream outfile(pivotsAndTrainModelFileName,ofstream::out);
@@ -32,6 +33,11 @@ GetMetricData CDatasetInMetricSpace::getMetricTrainData(char *classifyMethod,vec
 
 	vector<int> pivotsindex;
 	pivotsindex=pivotSelectionMethod->selectPivots(metric,*traindata,pivotNum);
+	if(pivotsindex.size() != pivotNum)
+	{
+		cout << "selected pivots number unequal with pivotNum ! please check is the number of total traindata smaller than pivotNum ?" << endl;
+		exit(0);
+	}
 	outfile<<pivotsindex.size()<<endl;
 
 	CountedMetric* coutMetric = dynamic_cast<CountedMetric*>(metric);
@@ -41,36 +47,94 @@ GetMetricData CDatasetInMetricSpace::getMetricTrainData(char *classifyMethod,vec
 	CDNAMetric* dnaMetric = dynamic_cast<CDNAMetric*>(coutMetric->getBaseMetric());
 	CPeptideMetric* peptideMetric = dynamic_cast<CPeptideMetric*>(coutMetric->getBaseMetric());
 	CLInfinityDistance* lInfinityMetric = dynamic_cast<CLInfinityDistance*>(coutMetric->getBaseMetric());
-	;
+	CTimeSeriesMetric* timeSeriesMetric = dynamic_cast<CTimeSeriesMetric*>(coutMetric->getBaseMetric());
+	
+	/** Putout the information of pivots **/
 	for(auto i=pivotsindex.begin();i<pivotsindex.end();++i)
 	{
-		double* dataList=NULL;
-		if(eudlideanDistance != NULL) {CDoubleVector* vectorData = (CDoubleVector*)(traindata->at(*i).get());dataList = vectorData->getData();outfile<<"eudlideanDistance"<<" ";}
 		
-		if(editDistance != NULL) {CDoubleVector* vectorData = (CDoubleVector*)(traindata->at(*i).get());dataList = vectorData->getData();outfile<<"editDistance"<<" ";}
-
-		//if(imageMetric != NULL) {CImage* vectorData = (CImage*)(traindata->at(*i).get());dataList = vectorData->getData();outfile<<"imageMetric"<<" ";}
-
-		//if(dnaMetric != NULL){CDNA* vectorData = (CDNA*)(traindata->at(*i).get());dataList = vectorData->getData();outfile<<"dnaMetric"<<" ";}
-
-		//if(peptideMetric != NULL) {CPeptide* vectorData = (CPeptide*)(traindata->at(*i).get());dataList = vectorData->getData();outfile<<"peptideMetric"<<" ";}
-
-		if(lInfinityMetric != NULL) {CDoubleVector* vectorData = (CDoubleVector*)(traindata->at(*i).get());dataList = vectorData->getData();outfile<<"lInfinityMetric"<<" ";}
-
-
-		outfile<<dim<<endl;
-		for(int j=0; j < dim; ++j)
+		if(eudlideanDistance != NULL) 
 		{
-			if(j == dim - 1)
-				outfile << dataList[j] << endl;
-			else 
-				outfile << dataList[j] << " ";
+			double* dataList=NULL;
+			CDoubleVector* vectorData = (CDoubleVector*)(traindata->at(*i).get());
+			dataList = vectorData->getData();
+			outfile<<"eudlideanDistance"<<" ";
+
+			outfile<<dim<<endl;
+			for(int j=0; j < dim; ++j)
+			{
+				if(j == dim - 1)
+					outfile << dataList[j] << endl;
+				else 
+					outfile << dataList[j] << " ";
+			}
+		}
+		
+		if(editDistance != NULL)
+		{
+			string dataList;
+			CStringObject* stringData = (CStringObject*)(traindata->at(*i).get());
+			dataList = stringData->getData();
+			outfile << "editDistance" << endl;
+			outfile << dataList << endl;
+
+		}
+
+		if(lInfinityMetric != NULL) 
+		{
+			double* dataList=NULL;
+			CDoubleVector* vectorData = (CDoubleVector*)(traindata->at(*i).get());
+			dataList = vectorData->getData();
+			outfile<<"lInfinityMetric"<<" ";
+		
+			outfile<<dim<<endl;
+			for(int j=0; j < dim; ++j)
+			{
+				if(j == dim - 1)
+					outfile << dataList[j] << endl;
+				else 
+					outfile << dataList[j] << " ";
+			}
+		}
+		
+		if(dnaMetric != NULL)
+		{
+			vector<int> dataList;
+			CDNA *stringData = (CDNA *)(traindata->at(*i).get());
+			dataList = stringData->getSymbolIDs();
+			outfile << "dnaMetric" << " " << dim << endl;
+			for(int a=0; a<dataList.size(); a++)
+				outfile << dataList[a] <<" ";
+			outfile << endl;		
+		}
+
+		if(timeSeriesMetric != NULL) 
+		{
+			vector<TimeSeries> dataList;
+			CTimeSeries* vectorData = (CTimeSeries*)(traindata->at(*i).get());
+			dataList = vectorData->getData();
+			outfile<<"timeSeriesMetric"<<" ";
+
+			outfile << dim << " " << coordinate << endl;
+			for(int j=0; j < 2; ++j)
+			{
+				if(coordinate == 1)
+					outfile << dataList[j].x_coord << " ";
+				else if(coordinate == 2)
+					outfile << dataList[j].x_coord << " " << dataList[j].y_coord << ",";
+				else if(coordinate == 3)
+					outfile << dataList[j].x_coord << " " << dataList[j].y_coord << " " << dataList[j].z_coord << ",";
+				else
+					outfile << dataList[j].x_coord << " " << dataList[j].y_coord << " " << dataList[j].z_coord << " " << dataList[j].time << ",";
+			}
+			outfile << endl;
 		}
 	}
 	outfile.close();
 
 	vector<double> distance;
 
+	/** calcute the distance between sampling point and pivots **/
 	for(decltype(traindata->size()) i=0;i<traindata->size();++i)
 	{
 		for(auto j=pivotsindex.begin(); j!=pivotsindex.end(); ++j)
@@ -104,16 +168,18 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTrainData(char *class
 	}
 	string classificationMethod="";
 	infile >> classificationMethod;
+
+	/** capture the information of pivots **/
 	if(classificationMethod == classifyMethod)
 	{		
 		string distanceFun="";
 		infile >> pivotsNum;
 		infile >> distanceFun;
-		infile >> attNum;
 		vector<shared_ptr<CMetricData> > *pivots = new vector<shared_ptr<CMetricData> >();
 
 		if(distanceFun == "eudlideanDistance")
 		{
+			infile >> attNum;
 			string str="";
 			double *data;
 			shared_ptr<CDoubleVector> temp = shared_ptr<CDoubleVector>();
@@ -140,6 +206,7 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTrainData(char *class
 
 		else if(distanceFun == "lInfinityMetric")
 		{
+			infile >> attNum;
 			string str="";
 			double *data;
 			shared_ptr<CDoubleVector> temp = shared_ptr<CDoubleVector>();
@@ -166,7 +233,31 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTrainData(char *class
 
 		else if(distanceFun == "editDistance")
 		{
+			string str="";
+			//vector<string> data;
+			//shared_ptr<CEnglishDocument> temp = shared_ptr<CEnglishDocument>();
+			shared_ptr<CStringObject> temp = shared_ptr<CStringObject>();
+			for(int i=0;i<2*pivotsNum-1;++i)
+			{
+				if(i%2==0)
+				{
+					getline(infile,str);
 
+					//stringstream ss(str);
+					//string newStr;
+					//while (getline(ss,newStr,' '))
+						//data.push_back(str);
+
+					//temp.reset(new CEnglishDocument(data));
+					temp.reset(new CStringObject(str));
+					pivots->push_back(temp);
+				}
+				else
+				{
+					infile >> distanceFun;
+				}
+			}
+			infile.close();
 		}
 
 		else if(distanceFun == "imageMetric")
@@ -176,7 +267,93 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTrainData(char *class
 
 		else if(distanceFun == "dnaMetric")
 		{
+			infile >> attNum;
+			int dnaSymbol=0;
+			vector<int> data;
+			shared_ptr<CDNA> temp = shared_ptr<CDNA>();
+			for(int i=0;i<2*pivotsNum-1;++i)
+			{
+				if(i%2==0)
+				{
+					for(int j=0; j<attNum; ++j)
+					{
+						infile >> dnaSymbol;
+						data.push_back(dnaSymbol);
+					}
+					temp.reset(new CDNA("promoters",data));              
+					pivots->push_back(temp);
+					data.clear();
+				}
+				else
+				{
+					infile >> distanceFun;
+					infile >> attNum;
+				}
+			}
+			infile.close();
+		}
 
+		else if(distanceFun == "timeSeriesMetric")
+		{
+			int coordinate;
+			char delim;
+			infile >> attNum;
+			infile >> coordinate;
+			string str="";
+			vector<TimeSeries> data;
+			TimeSeries trans;
+			shared_ptr<CTimeSeries> temp = shared_ptr<CTimeSeries>();
+			for(int i=0;i<2*pivotsNum-1;++i)
+			{
+				if(i%2==0)
+				{
+					for(int j=0; j<2; ++j)
+					{
+						if(coordinate == 1)
+						{
+							infile >> trans.x_coord;
+							trans.y_coord = 0;
+							trans.z_coord = 0;
+							trans.time = 0;
+						}
+						else if(coordinate ==2)
+						{
+							infile >> trans.x_coord;
+							infile >> trans.y_coord;
+							infile >> delim;
+							trans.z_coord = 0;
+							trans.time = 0;
+						}
+						else if(coordinate ==3)
+						{
+							infile >> trans.x_coord;
+							infile >> trans.y_coord;
+							infile >> trans.z_coord;
+							infile >> delim;
+							trans.time = 0;
+						}
+						else
+						{
+							infile >> trans.x_coord;
+							infile >> trans.y_coord;
+							infile >> trans.z_coord;
+							infile >> trans.time;
+							infile >> delim;
+						}
+						data.push_back(trans);
+					}				
+					temp.reset(new CTimeSeries(data,attNum,coordinate));
+					pivots->push_back(temp);
+					data.clear();
+				}
+				else
+				{
+					infile >> distanceFun;
+					infile >> attNum;
+					infile >> coordinate;
+				}
+			}
+			infile.close();
 		}
 
 		else if(distanceFun == "peptideMetric")
@@ -232,11 +409,11 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTestData(char *classi
 		string distanceFun="";
 		infile >> pivotsNum;
 		infile >> distanceFun;
-		infile >> attNum;
 		vector<shared_ptr<CMetricData> > *pivots = new vector<shared_ptr<CMetricData> >();
 
 		if(distanceFun=="eudlideanDistance")
 		{
+			infile >> attNum;
 			string str="";
 			double *data;
 			shared_ptr<CDoubleVector> temp = shared_ptr<CDoubleVector>();
@@ -287,7 +464,31 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTestData(char *classi
 
 		else if(distanceFun == "editDistance")
 		{
+			string str="";
+			//vector<string> data;
+			//shared_ptr<CEnglishDocument> temp = shared_ptr<CEnglishDocument>();
+			shared_ptr<CStringObject> temp = shared_ptr<CStringObject>();
+			for(int i=0;i<2*pivotsNum-1;++i)
+			{
+				if(i%2==0)
+				{
+					getline(infile,str);
 
+					//stringstream ss(str);
+					//string newStr;
+					//while (getline(ss,newStr,' '))
+						//data.push_back(str);
+
+					//temp.reset(new CEnglishDocument(data));
+					temp.reset(new CStringObject(str));
+					pivots->push_back(temp);
+				}
+				else
+				{
+					infile >> distanceFun;
+				}
+			}
+			infile.close();
 		}
 
 		else if(distanceFun == "imageMetric")
@@ -297,7 +498,93 @@ GetMetricData CDatasetInMetricSpace::getMetricTestData_fromTestData(char *classi
 
 		else if(distanceFun == "dnaMetric")
 		{
+			infile >> attNum;
+			int dnaSymbol=0;
+			vector<int> data;
+			shared_ptr<CDNA> temp = shared_ptr<CDNA>();
+			for(int i=0;i<2*pivotsNum-1;++i)
+			{
+				if(i%2==0)
+				{
+					for(int j=0; j<attNum; ++j)
+					{
+						infile >> dnaSymbol;
+						data.push_back(dnaSymbol);
+					}
+					temp.reset(new CDNA("promoters",data));              
+					pivots->push_back(temp);
+					data.clear();
+				}
+				else
+				{
+					infile >> distanceFun;
+					infile >> attNum;
+				}
+			}
+			infile.close();
+		}
 
+		else if(distanceFun == "timeSeriesMetric")
+		{
+			int coordinate;
+			char delim;
+			infile >> attNum;
+			infile >> coordinate;
+			string str="";
+			vector<TimeSeries> data;
+			TimeSeries trans;
+			shared_ptr<CTimeSeries> temp = shared_ptr<CTimeSeries>();
+			for(int i=0;i<2*pivotsNum-1;++i)
+			{
+				if(i%2==0)
+				{
+					for(int j=0; j<2; ++j)
+					{
+						if(coordinate == 1)
+						{
+							infile >> trans.x_coord;
+							trans.y_coord = 0;
+							trans.z_coord = 0;
+							trans.time = 0;
+						}
+						else if(coordinate ==2)
+						{
+							infile >> trans.x_coord;
+							infile >> trans.y_coord;
+							infile >> delim;
+							trans.z_coord = 0;
+							trans.time = 0;
+						}
+						else if(coordinate ==3)
+						{
+							infile >> trans.x_coord;
+							infile >> trans.y_coord;
+							infile >> trans.z_coord;
+							infile >> delim;
+							trans.time = 0;
+						}
+						else
+						{
+							infile >> trans.x_coord;
+							infile >> trans.y_coord;
+							infile >> trans.z_coord;
+							infile >> trans.time;
+							infile >> delim;
+						}
+						data.push_back(trans);
+					}				
+					temp.reset(new CTimeSeries(data,attNum,coordinate));
+					pivots->push_back(temp);
+					data.clear();
+				}
+				else
+				{
+					infile >> distanceFun;
+					infile >> attNum;
+					infile >> coordinate;
+				}
+			}
+			infile.close();
 		}
 
 		else if(distanceFun == "peptideMetric")

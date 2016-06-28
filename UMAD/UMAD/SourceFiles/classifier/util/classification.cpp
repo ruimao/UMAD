@@ -11,6 +11,8 @@
 #include "../../../HeaderFiles/metricdata/StringObject.h"
 #include "../../../HeaderFiles/metricdata/DNA.h"
 #include "../../../HeaderFiles/metricdata/Peptide.h"
+#include "../../../HeaderFiles/metricdata/TimeSeries.h"
+#include "../../../HeaderFiles/metricdata/DNA_Classify.h"
 
 #include "../../../HeaderFiles/metricdistance/MetricDistance.h"
 #include "../../../HeaderFiles/metricdistance/EuclideanDistance.h"
@@ -19,6 +21,7 @@
 #include "../../../HeaderFiles/metricdistance/DNAMetric.h"
 #include "../../../HeaderFiles/metricdistance/PeptideMetric.h"
 #include "../../../HeaderFiles/metricdistance/LInfinityDistance.h"
+#include "../../../HeaderFiles/metricdistance/TimeSeriesMetric.h"
 
 #include "../../../HeaderFiles/index/PivotSelectionMethod.h"
 #include "../../../HeaderFiles/index/FFTPivotSelectionMethod.h"
@@ -32,6 +35,8 @@
 #include "../../../HeaderFiles/classifier/Test_NavieBayes.h"
 #include "../../../HeaderFiles/classifier/Train_C4.5.h"
 #include "../../../HeaderFiles/classifier/Test_C4.5.h"
+#include "../../../HeaderFiles/classifier/Train_SVM.h"
+#include "../../../HeaderFiles/classifier/Test_SVM.h"
 
 #include "../../../HeaderFiles/classifier/util/DatasetInMetricSpace.h"
 #include "../../../HeaderFiles/classifier/util/MetricDataFormat.h"
@@ -48,9 +53,9 @@
 
 using namespace std;
 
-extern void joinCharArray(char*&dest,const char *sor);
+extern void joinCharArray(char*&dest,char *sor);
 
-void Train(char *dataType,char *disfun,char *pivotSelectionMethod,int numPivot,char *classifyMethod,char *trainDataFileName,int initialSize,int dim,char *pivotsAndTrainModelFileName)
+void Train(char *dataType,char *disfun,char *pivotSelectionMethod,int numPivot,char *classifyMethod,char *trainDataFileName,int initialSize,int dim,char *pivotsAndTrainModelFileName,int coordinate)
 {
 #ifdef __GNUC__
 	char *newTrainDataFileName="../../../SourceFiles/util/data/";
@@ -69,31 +74,50 @@ void Train(char *dataType,char *disfun,char *pivotSelectionMethod,int numPivot,c
 	char *newPivotsAndTrainModelFileName="./SourceFiles/util/result/";
 #endif
 	joinCharArray(newPivotsAndTrainModelFileName,pivotsAndTrainModelFileName);
+
 	vector<shared_ptr<CMetricData> > *traindata=0; //store the traindata
+	vector<string> trainDataLabel;
+
 	if(strcmp(dataType,"vector")==0)
 	{
 		traindata=CDoubleVector::loadData(newTrainDataFileName,initialSize,dim);
+
+		CReadLabel readTrainDataLabel;
+		trainDataLabel = readTrainDataLabel.loadLabel(newTrainDataFileName,initialSize,dataType);
 	}
+
 	else if(strcmp(dataType,"string")==0)
 	{
 		traindata=CStringObject::loadData(newTrainDataFileName,initialSize);
+
+		CReadLabel readTrainDataLabel;
+		trainDataLabel = readTrainDataLabel.loadLabel(newTrainDataFileName,initialSize,dataType);
 	}
+	else if(strcmp(dataType,"dna")==0)
+	{
+		traindata=CDNA_CLASSIFY::loadData(newTrainDataFileName,initialSize,dim);
+
+		CReadLabel readTrainDataLabel;
+		trainDataLabel = readTrainDataLabel.loadLabel(newTrainDataFileName,initialSize/57,dataType);
+	}
+
+	else if(strcmp(dataType,"time_series")==0)
+	{
+		traindata=CTimeSeries::loadData(newTrainDataFileName,initialSize,dim);
+
+		CReadLabel readTrainDataLabel;
+		trainDataLabel = readTrainDataLabel.loadLabel(newTrainDataFileName,initialSize,dataType);
+	}
+
 	else if(strcmp(dataType,"image")==0)
 	{
 		traindata=CImage::loadData(newTrainDataFileName,initialSize,dim);
 	}
-	else if(strcmp(dataType,"dna")==0)
-	{
-		traindata=CDNA::loadData(newTrainDataFileName,initialSize,dim);
-	}
+	
 	else if(strcmp(dataType,"peptide")==0)
 	{
 		traindata=CPeptide::loadData(newTrainDataFileName,initialSize,dim);
 	}
-
-	CReadLabel readTrainDataLabel;
-	vector <string> trainDataLabel; //store the traindata label
-	trainDataLabel=readTrainDataLabel.loadLabel(newTrainDataFileName,initialSize);
 
 	CMetricDistance *metric=0;
 	if(strcmp(disfun,"EuclideanDistance")==0)
@@ -103,6 +127,10 @@ void Train(char *dataType,char *disfun,char *pivotSelectionMethod,int numPivot,c
 	else if(strcmp(disfun,"EditDistance")==0)
 	{
 		metric = new CEditDistance;
+	}
+	else if(strcmp(disfun,"TimeSeriesMetric")==0)
+	{
+		metric = new CTimeSeriesMetric;
 	}
 	else if(strcmp(disfun,"ImageMetric")==0)
 	{
@@ -136,21 +164,39 @@ void Train(char *dataType,char *disfun,char *pivotSelectionMethod,int numPivot,c
 		pivotselectionmethod = new CIncrementalSelection(1,2);
 	}
 	
+	if(numPivot > initialSize)
+	{
+		cout << "The pivot number larger than the traindata size. Please reset the number of pivot !" << endl;
+		exit(0);
+	}
 
 	if(strcmp(classifyMethod,"knn")==0)
 	{
 		CTrain_Knn train_knn;
-		train_knn.TrainModel(classifyMethod,traindata,trainDataLabel,cmetric,pivotselectionmethod,numPivot,newPivotsAndTrainModelFileName,dim);
+		train_knn.TrainModel(classifyMethod,traindata,trainDataLabel,cmetric,pivotselectionmethod,numPivot,newPivotsAndTrainModelFileName,dim,coordinate);
+	}
+	else if(strcmp(classifyMethod,"knnCrossValid")==0)
+	{
+		CTrain_Knn train_knn;
+		train_knn.TrainModelUseCrossValidation(classifyMethod,traindata,trainDataLabel,cmetric,pivotselectionmethod,numPivot,newPivotsAndTrainModelFileName,dim,coordinate);
 	}
 	else if(strcmp(classifyMethod,"naviebayes")==0)
 	{
 		CTrain_NavieBayes train_naviebayes;
-		train_naviebayes.TrainModel(classifyMethod,traindata,trainDataLabel,cmetric,pivotselectionmethod,numPivot,newPivotsAndTrainModelFileName,newTrainDataFileName,dim);
+		train_naviebayes.TrainModel(classifyMethod,traindata,trainDataLabel,cmetric,pivotselectionmethod,numPivot,newPivotsAndTrainModelFileName,newTrainDataFileName,dim,coordinate);
 	}
 	else if(strcmp(classifyMethod,"c4.5")==0)
 	{
 		C4_5 c45;
-		c45.TrainModel(classifyMethod,traindata,trainDataLabel,cmetric,pivotselectionmethod,numPivot,newPivotsAndTrainModelFileName,newTrainDataFileName,dim);
+		c45.TrainModel(classifyMethod,traindata,trainDataLabel,cmetric,pivotselectionmethod,numPivot,newPivotsAndTrainModelFileName,newTrainDataFileName,dim,coordinate);
+	}
+	else if(strcmp(classifyMethod,"svm")==0)
+	{
+		CDatasetInMetricSpace getTrainData;
+		GetMetricData M_traindata;
+		M_traindata=getTrainData.getMetricTrainData(classifyMethod,traindata,trainDataLabel,cmetric,pivotselectionmethod,numPivot,newPivotsAndTrainModelFileName,dim,coordinate);
+		CTrain_SVM svm(M_traindata);
+		svm.TrainModel(newPivotsAndTrainModelFileName);
 	}
 }
 
@@ -184,31 +230,48 @@ void Test(char *dataType,char *disfun,char *classifyMethod,char *testDataFileNam
 	joinCharArray(newTestModelFileName,testModelFileName);
 
 	vector<shared_ptr<CMetricData> > *testdata=0; //store the testdata
+	vector<string> testDataLabel;
+
 	if(strcmp(dataType,"vector")==0)
 	{
 		testdata=CDoubleVector::loadData(newTestDataFileName,finalSize,dim);
+
+		CReadLabel readTestDataLabel;
+		testDataLabel=readTestDataLabel.loadLabel(newTestDataFileName,finalSize,dataType);
 	}
+
 	else if(strcmp(dataType,"string")==0)
 	{
 		testdata=CStringObject::loadData(newTestDataFileName,finalSize);
+
+		CReadLabel readTestDataLabel;
+		testDataLabel=readTestDataLabel.loadLabel(newTestDataFileName,finalSize,dataType);
 	}
+	else if(strcmp(dataType,"dna")==0)
+	{
+		testdata=CDNA_CLASSIFY::loadData(newTestDataFileName,finalSize,dim);
+
+		CReadLabel readTestDataLabel;
+		testDataLabel=readTestDataLabel.loadLabel(newTestDataFileName,finalSize/57,dataType);
+	}
+
+	else if(strcmp(dataType,"time_series")==0)
+	{
+		testdata=CTimeSeries::loadData(newTestDataFileName,finalSize,dim);
+
+		CReadLabel readTestDataLabel;
+		testDataLabel=readTestDataLabel.loadLabel(newTestDataFileName,finalSize,dataType);
+	}
+
 	else if(strcmp(dataType,"image")==0)
 	{
 		testdata=CImage::loadData(newTestDataFileName ,finalSize, dim);
 	}
-	else if(strcmp(dataType,"dna")==0)
-	{
-		testdata=CDNA::loadData(newTestDataFileName,finalSize,dim);
-	}
+	
 	else if(strcmp(dataType,"peptide")==0)
 	{
 		testdata=CPeptide::loadData(newTestDataFileName,finalSize,dim);
-	}
-
-
-	CReadLabel readTestDataLabel;
-	vector <string> testDataLabel;
-	testDataLabel=readTestDataLabel.loadLabel(newTestDataFileName,finalSize);
+	}	
 
 	CMetricDistance *metric=0;
 	if(strcmp(disfun,"EuclideanDistance")==0)
@@ -218,6 +281,10 @@ void Test(char *dataType,char *disfun,char *classifyMethod,char *testDataFileNam
 	else if(strcmp(disfun,"EditDistance")==0)
 	{
 		metric = new CEditDistance;
+	}
+	else if(strcmp(disfun,"TimeSeriesMetric")==0)
+	{
+		metric = new CTimeSeriesMetric;
 	}
 	else if(strcmp(disfun,"ImageMetric")==0)
 	{
@@ -251,5 +318,22 @@ void Test(char *dataType,char *disfun,char *classifyMethod,char *testDataFileNam
 	{
 		CTest_C4_5 test_c45;
 		test_c45.TestModel(classifyMethod,testdata,testDataLabel,cmetric,newPivotsAndTrainModelFileName,newTestModelFileName,status,splitRatio);
+	}
+	else if(strcmp(classifyMethod,"svm")==0)
+	{
+		CDatasetInMetricSpace getTestData;
+		GetMetricData M_testdata;
+		if(status==0)
+		{
+			M_testdata=getTestData.getMetricTestData_fromTrainData(classifyMethod,testdata,testDataLabel,cmetric,newPivotsAndTrainModelFileName,splitRatio);
+			printf("\n\nEvaluation on training data (%d items):\n", M_testdata.metricData.size());
+		}
+		else if(status==1)
+		{
+			M_testdata=getTestData.getMetricTestData_fromTestData(classifyMethod,testdata,testDataLabel,cmetric,newPivotsAndTrainModelFileName);
+			printf("\nEvaluation on test data (%d items):\n", M_testdata.metricData.size());
+		}
+		CTest_SVM svm(M_testdata);
+		svm.TestModel(newPivotsAndTrainModelFileName,newTestModelFileName);
 	}
 }
